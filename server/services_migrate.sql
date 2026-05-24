@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS service_categories (
   package_id  INT          NOT NULL REFERENCES service_packages(id) ON DELETE CASCADE,
   name        VARCHAR(150) NOT NULL,
   description TEXT         NOT NULL,
+  price_vnd   BIGINT       NULL,
   sort_order  INT          NOT NULL DEFAULT 0,
   created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
@@ -53,31 +54,39 @@ ON CONFLICT (slug) DO NOTHING;
 
 -- Categories for GÓI CHỤP
 WITH pkg AS (SELECT id FROM service_packages WHERE slug = 'chup-anh')
-INSERT INTO service_categories (package_id, name, description, sort_order)
-SELECT pkg.id, cat.name, cat.description, cat.sort_order FROM pkg, (VALUES
+INSERT INTO service_categories (package_id, name, description, price_vnd, sort_order)
+SELECT pkg.id, cat.name, cat.description, cat.price_vnd, cat.sort_order FROM pkg, (VALUES
   (1, 'Cá nhân',
-   'Phù hợp cho: Profile cá nhân, ảnh thương hiệu cá nhân, social media content. Tập trung thần thái, bố cục và màu sắc đúng cá tính riêng.'),
+   'Phù hợp cho: Profile cá nhân, ảnh thương hiệu cá nhân, social media content. Tập trung thần thái, bố cục và màu sắc đúng cá tính riêng.',
+   1500000),
   (2, 'Couple',
-   'Dành cho các cặp đôi muốn lưu giữ khoảnh khắc yêu thương theo cách chân thật, giàu cảm xúc và có chiều sâu hình ảnh.')
-) AS cat(sort_order, name, description);
+   'Dành cho các cặp đôi muốn lưu giữ khoảnh khắc yêu thương theo cách chân thật, giàu cảm xúc và có chiều sâu hình ảnh.',
+   2500000)
+) AS cat(sort_order, name, description, price_vnd);
 
 -- Categories for GÓI VIDEO
 WITH pkg AS (SELECT id FROM service_packages WHERE slug = 'quay-video')
-INSERT INTO service_categories (package_id, name, description, sort_order)
-SELECT pkg.id, cat.name, cat.description, cat.sort_order FROM pkg, (VALUES
+INSERT INTO service_categories (package_id, name, description, price_vnd, sort_order)
+SELECT pkg.id, cat.name, cat.description, cat.price_vnd, cat.sort_order FROM pkg, (VALUES
   (1, 'Short film - MV - TVC',
-   'Sản xuất phim ngắn, âm nhạc và quảng cáo truyền hình với định hướng hình ảnh rõ ràng, câu chuyện chặt chẽ và cảm xúc mạnh.'),
+   'Sản xuất phim ngắn, âm nhạc và quảng cáo truyền hình với định hướng hình ảnh rõ ràng, câu chuyện chặt chẽ và cảm xúc mạnh.',
+   15000000),
   (2, 'Phim & Quảng cáo Doanh nghiệp',
-   'Nâng tầm thương hiệu của bạn với các video doanh nghiệp chỉn chu, thuyết phục và tối ưu cho nhiều điểm chạm truyền thông.'),
+   'Nâng tầm thương hiệu của bạn với các video doanh nghiệp chỉn chu, thuyết phục và tối ưu cho nhiều điểm chạm truyền thông.',
+   20000000),
   (3, 'Short Clip Social Media',
-   'Nội dung ngắn được tối ưu cho các nền tảng mạng xã hội, giữ đúng nhịp xem nhanh nhưng vẫn đảm bảo nhận diện thương hiệu.'),
+   'Nội dung ngắn được tối ưu cho các nền tảng mạng xã hội, giữ đúng nhịp xem nhanh nhưng vẫn đảm bảo nhận diện thương hiệu.',
+   5000000),
   (4, 'Xây Dựng & Phát Triển Kênh',
-   'Từng bước xây dựng và phát triển kênh YouTube/TikTok với chiến lược nội dung, tối ưu hiển thị và tăng trưởng bền vững.'),
+   'Từng bước xây dựng và phát triển kênh YouTube/TikTok với chiến lược nội dung, tối ưu hiển thị và tăng trưởng bền vững.',
+   8000000),
   (5, 'Tư Vấn Chuyên Môn',
-   'Chia sẻ kiến thức và kinh nghiệm về chính sách kênh, nội dung, sản phẩm và cách vận hành để hạn chế sai lầm khi triển khai.'),
+   'Chia sẻ kiến thức và kinh nghiệm về chính sách kênh, nội dung, sản phẩm và cách vận hành để hạn chế sai lầm khi triển khai.',
+   3000000),
   (6, 'Livestream Bán Hàng & Sự Kiện',
-   'Thiết kế format livestream bán hàng và sự kiện với flow rõ ràng, hình ảnh bắt mắt và khả năng chuyển đổi cao.')
-) AS cat(sort_order, name, description);
+   'Thiết kế format livestream bán hàng và sự kiện với flow rõ ràng, hình ảnh bắt mắt và khả năng chuyển đổi cao.',
+   6000000)
+) AS cat(sort_order, name, description, price_vnd);
 
 -- Tags for Cá nhân (chup-anh)
 WITH cat AS (

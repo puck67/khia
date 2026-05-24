@@ -65,8 +65,12 @@ function Tag({ children }) {
   )
 }
 
-function ServiceCategory({ name, description, tags, defaultOpen = false, withDivider = true, serviceLabel }) {
+function ServiceCategory({ name, description, tags, price, defaultOpen = false, withDivider = true, serviceLabel }) {
   const [isOpen, setIsOpen] = useState(defaultOpen)
+
+  const priceLabel = price
+    ? price.toLocaleString('vi-VN') + ' ₫'
+    : 'Liên hệ'
 
   return (
     <div className={`flex flex-col bg-[rgba(232,197,71,0.05)] ${withDivider ? 'border-b border-[#2A2A2A]' : ''}`}>
@@ -75,12 +79,20 @@ function ServiceCategory({ name, description, tags, defaultOpen = false, withDiv
         onClick={() => setIsOpen((value) => !value)}
         className="flex items-center justify-between gap-4 px-6 py-7 text-left md:px-10"
       >
-        <span
-          className="text-lg font-bold leading-7 text-[#E8C547]"
-          style={{ fontFamily: "'Gowun Batang', serif" }}
-        >
-          {name}
-        </span>
+        <div className="flex flex-col gap-1">
+          <span
+            className="text-lg font-bold leading-7 text-[#E8C547]"
+            style={{ fontFamily: "'Gowun Batang', serif" }}
+          >
+            {name}
+          </span>
+          <span
+            className="text-sm font-semibold text-[#9CA3AF]"
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          >
+            {priceLabel}
+          </span>
+        </div>
         <ToggleIcon isOpen={isOpen} />
       </button>
 
@@ -196,7 +208,7 @@ export default function ServicesPage() {
   useEffect(() => {
     fetch('http://localhost:3001/api/services')
       .then((res) => res.json())
-      .then((data) => setPackages(data))
+      .then((data) => setPackages(Array.isArray(data) ? data : []))
       .catch((err) => console.error('Failed to load services:', err))
   }, [])
 

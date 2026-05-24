@@ -1,9 +1,11 @@
+import AdminPage from './pages/AdminPage.jsx'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import BookingConfirmPage from './pages/BookingConfirmPage.jsx'
 import BookingPage from './pages/BookingPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import PaymentPage from './pages/PaymentPage.jsx'
 import ProductPage from './pages/ProductPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import ServicesPage from './pages/ServicesPage.jsx'
@@ -18,6 +20,8 @@ export default function App() {
       <Route path="/lien-he" element={<ContactPage />} />
       <Route path="/booking" element={<BookingPage />} />
       <Route path="/booking/confirm" element={<BookingConfirmPage />} />
+      <Route path="/payment" element={<PaymentPage />} />
+      <Route path="/admin" element={<AdminPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/profile" element={<ProfilePage />} />

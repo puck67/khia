@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'SELECT id, first_name, last_name, email, phone, role, password_hash FROM users WHERE email = $1',
+      'SELECT id, first_name, last_name, email, phone, role, password_hash, is_admin FROM users WHERE email = $1',
       [email]
     )
 
@@ -89,7 +89,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Email hoặc mật khẩu không đúng.' })
     }
 
-    const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' })
+    const token = jwt.sign({ userId: user.id, email: user.email, isAdmin: user.is_admin }, process.env.JWT_SECRET, { expiresIn: '7d' })
 
     return res.json({
       message: 'Đăng nhập thành công.',
@@ -101,6 +101,7 @@ router.post('/login', async (req, res) => {
         email: user.email,
         phone: user.phone,
         role: user.role,
+        isAdmin: user.is_admin,
       },
     })
   } catch (err) {
@@ -113,7 +114,7 @@ router.post('/login', async (req, res) => {
 router.get('/profile', requireAuth, async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT id, first_name, last_name, email, phone, role, created_at FROM users WHERE id = $1',
+      'SELECT id, first_name, last_name, email, phone, role, is_admin, created_at FROM users WHERE id = $1',
       [req.userId]
     )
     if (result.rows.length === 0) {
@@ -127,6 +128,7 @@ router.get('/profile', requireAuth, async (req, res) => {
       email: u.email,
       phone: u.phone,
       role: u.role,
+      isAdmin: u.is_admin,
       createdAt: u.created_at,
     })
   } catch (err) {

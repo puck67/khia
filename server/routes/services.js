@@ -23,7 +23,7 @@ router.get('/options', async (req, res) => {
 })
 
 // GET /api/services/categories?service=Gói+chụp
-// Returns category names for a given service label
+// Returns category names + price for a given service label
 router.get('/categories', async (req, res) => {
   try {
     const { service } = req.query
@@ -33,14 +33,14 @@ router.get('/categories', async (req, res) => {
     if (!slug) return res.json([])
 
     const result = await pool.query(
-      `SELECT sc.name
+      `SELECT sc.name, sc.price_vnd
        FROM service_categories sc
        JOIN service_packages sp ON sp.id = sc.package_id
        WHERE sp.slug = $1
        ORDER BY sc.sort_order`,
       [slug]
     )
-    res.json(result.rows.map((r) => r.name))
+    res.json(result.rows.map((r) => ({ name: r.name, price: r.price_vnd ? Number(r.price_vnd) : null })))
   } catch (err) {
     console.error('GET /api/services/categories error:', err)
     res.status(500).json({ error: 'Internal server error' })
@@ -64,7 +64,7 @@ router.get('/', async (req, res) => {
     const packageIds = packages.map((p) => p.id)
 
     const categoriesResult = await pool.query(
-      `SELECT id, package_id, name, description
+      `SELECT id, package_id, name, description, price_vnd
        FROM service_categories
        WHERE package_id = ANY($1)
        ORDER BY package_id, sort_order`,
@@ -93,6 +93,7 @@ router.get('/', async (req, res) => {
       categoriesByPackage[cat.package_id].push({
         name: cat.name,
         description: cat.description,
+        price: cat.price_vnd ? Number(cat.price_vnd) : null,
         tags: tagsByCategory[cat.id] || [],
       })
     }

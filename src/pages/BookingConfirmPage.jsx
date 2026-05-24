@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 
@@ -30,6 +31,21 @@ export default function BookingConfirmPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { form = {}, selectedDate, selectedSlot } = location.state || {}
+
+  const [price, setPrice] = useState(null)
+
+  useEffect(() => {
+    if (!form.service || !form.pkg) return
+    fetch(`http://localhost:3001/api/services/categories?service=${encodeURIComponent(form.service)}`)
+      .then((r) => r.json())
+      .then((cats) => {
+        const match = cats.find((c) => c.name === form.pkg)
+        if (match) setPrice(match.price)
+      })
+      .catch(() => {})
+  }, [form.service, form.pkg])
+
+  const priceLabel = price ? price.toLocaleString('vi-VN') + ' ₫' : null
 
   const dateLabel = selectedDate
     ? (() => {
@@ -178,6 +194,18 @@ export default function BookingConfirmPage() {
                   label="Gói dịch vụ"
                   value={form.pkg}
                 />
+                {priceLabel && (
+                  <InfoRow
+                    icon={
+                      <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5" aria-hidden="true">
+                        <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
+                        <path d="M10 6.5v1M10 12.5v1M7.5 8.5a2.5 1.5 0 015 0c0 1-1 1.5-2.5 1.5s-2.5.5-2.5 1.5a2.5 1.5 0 005 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                    }
+                    label="Giá dịch vụ"
+                    value={priceLabel}
+                  />
+                )}
               </div>
               {form.notes && (
                 <div className="mt-5">
@@ -244,10 +272,11 @@ export default function BookingConfirmPage() {
             </button>
             <button
               type="button"
+              onClick={() => navigate('/payment', { state: { form, selectedDate, selectedSlot } })}
               className="flex h-[56px] flex-1 items-center justify-center gap-2 rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-semibold text-[#0A0A0A] transition-opacity hover:opacity-90"
               style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
             >
-              Gửi yêu cầu đặt lịch →
+              Tiến hành thanh toán →
             </button>
           </div>
 

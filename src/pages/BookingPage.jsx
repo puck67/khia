@@ -102,7 +102,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
               style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               <option value="">Chọn gói dịch vụ</option>
-              {pkgOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+              {pkgOptions.map((o) => <option key={o.name} value={o.name}>{o.name}</option>)}
             </select>
             <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
               <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
