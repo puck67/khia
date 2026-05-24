@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import Navbar from '../components/Navbar.jsx'
 
@@ -8,6 +8,20 @@ const ROLE_LABELS = {
   'thuong-hieu': 'Thương hiệu',
   'doanh-nghiep': 'Doanh nghiệp',
   'doi-tac': 'Đối tác',
+}
+
+const STATUS_LABELS = {
+  pending: 'Chờ xác nhận',
+  confirmed: 'Đã xác nhận',
+  completed: 'Hoàn thành',
+  cancelled: 'Đã huỷ',
+}
+
+const STATUS_COLORS = {
+  pending: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/30',
+  confirmed: 'bg-blue-500/15 text-blue-400 border border-blue-500/30',
+  completed: 'bg-green-500/15 text-green-400 border border-green-500/30',
+  cancelled: 'bg-red-500/15 text-red-400 border border-red-500/30',
 }
 
 function EyeIcon() {
@@ -64,9 +78,11 @@ export default function ProfilePage() {
   const { user, getToken, updateUser, logout } = useAuth()
   const navigate = useNavigate()
 
-  const [tab, setTab] = useState('info') // 'info' | 'password'
+  const [tab, setTab] = useState('info') // 'info' | 'password' | 'bookings'
   const [loading, setLoading] = useState(false)
   const [toast, setToast] = useState({ message: '', type: 'success' })
+  const [bookings, setBookings] = useState([])
+  const [loadingBookings, setLoadingBookings] = useState(false)
 
   const [form, setForm] = useState({
     firstName: user?.firstName || '',
@@ -90,6 +106,25 @@ export default function ProfilePage() {
       })
       .catch(() => {})
   }, [])
+
+  useEffect(() => {
+    if (tab === 'bookings' && user) {
+      setLoadingBookings(true)
+      fetch(`${import.meta.env.VITE_API_URL || ''}/api/bookings/my`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      })
+        .then((r) => {
+          if (!r.ok) throw new Error('Không thể tải lịch sử đặt lịch')
+          return r.json()
+        })
+        .then((data) => setBookings(Array.isArray(data) ? data : []))
+        .catch((err) => {
+          console.error(err)
+          showToast('Lỗi khi tải lịch sử đặt lịch.', 'error')
+        })
+        .finally(() => setLoadingBookings(false))
+    }
+  }, [tab, user])
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type })
@@ -174,6 +209,7 @@ export default function ProfilePage() {
             {[
               { key: 'info', label: 'Thông tin cá nhân' },
               { key: 'password', label: 'Đổi mật khẩu' },
+              { key: 'bookings', label: 'Lịch sử đặt lịch' },
             ].map((t) => (
               <button
                 key={t.key}
@@ -299,6 +335,118 @@ export default function ProfilePage() {
                 {loading ? 'Đang đổi...' : 'Đổi mật khẩu'}
               </button>
             </form>
+          )}
+
+          {/* Tab: Bookings */}
+          {tab === 'bookings' && (
+            <div className="overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-8 py-8 md:px-10">
+              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                Lịch sử đặt lịch
+              </h2>
+
+              {loadingBookings ? (
+                <div className="flex flex-col items-center justify-center py-12 text-[#9CA3AF]">
+                  <svg className="animate-spin h-8 w-8 text-[#E8C547] mb-3" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  <span style={{ fontFamily: "'Gowun Batang', serif" }}>Đang tải lịch sử đặt lịch...</span>
+                </div>
+              ) : bookings.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[rgba(232,197,71,0.08)] text-[#E8C547]">
+                    <svg viewBox="0 0 20 20" fill="none" className="h-8 w-8" stroke="currentColor" strokeWidth="1.5">
+                      <rect x="3" y="4" width="14" height="13" rx="2" />
+                      <path d="M3 8h14M7 3v2M13 3v2" />
+                    </svg>
+                  </div>
+                  <p className="m-0 mb-6 text-[#9CA3AF] text-[15px]" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                    Bạn chưa có yêu cầu đặt lịch nào trong hệ thống.
+                  </p>
+                  <Link
+                    to="/booking"
+                    className="inline-flex h-[46px] items-center justify-center rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] px-6 text-sm font-semibold text-[#0A0A0A] hover:opacity-95 transition-opacity"
+                    style={{ fontFamily: "'Gowun Batang', serif" }}
+                  >
+                    Đặt lịch ngay
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-6">
+                  {bookings.map((b) => {
+                    const code = `#PTV-${b.id.toString(36).toUpperCase().padStart(6, '0')}`;
+                    const dateStr = b.booking_date ? new Date(b.booking_date).toLocaleDateString('vi-VN') : '—';
+                    const priceLabel = b.price_vnd ? Number(b.price_vnd).toLocaleString('vi-VN') + ' ₫' : 'Liên hệ';
+                    return (
+                      <div key={b.id} className="rounded-[16px] border border-[#2D2D2D] bg-[#141414] p-6 transition-all hover:border-[#E8C547]/30">
+                        {/* Card Top: Code & Status */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#222222] pb-4 mb-4">
+                          <div className="flex items-center gap-2.5">
+                            <span className="font-mono text-sm font-bold text-[#E8C547]">{code}</span>
+                            <span className="text-xs text-[#6B7280]">|</span>
+                            <span className="text-xs text-[#9CA3AF]">{b.created_at ? new Date(b.created_at).toLocaleDateString('vi-VN') : ''}</span>
+                          </div>
+                          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${STATUS_COLORS[b.status] || 'text-white'}`}>
+                            {STATUS_LABELS[b.status] || b.status}
+                          </span>
+                        </div>
+
+                        {/* Card Body */}
+                        <div className="grid gap-4 sm:grid-cols-2">
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              Dịch vụ
+                            </span>
+                            <span className="text-[15px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              {b.service}
+                            </span>
+                            <span className="text-xs text-[#9CA3AF]">{b.pkg}</span>
+                          </div>
+
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              Thời gian hẹn
+                            </span>
+                            <span className="text-[15px] font-semibold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              {dateStr}
+                            </span>
+                            <span className="text-xs text-[#9CA3AF]">{b.booking_slot}</span>
+                          </div>
+
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              Giá trị
+                            </span>
+                            <span className="text-[15px] font-bold text-[#E8C547]">
+                              {priceLabel}
+                            </span>
+                          </div>
+
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              Địa điểm
+                            </span>
+                            <span className="text-sm text-[#9CA3AF] truncate" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              {b.location || '—'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Extra Notes if present */}
+                        {b.notes && (
+                          <div className="mt-4 rounded-[10px] bg-[#1A1A1A] p-3 border border-[#222222]">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#6B7280] block mb-1" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                              Ghi chú thêm
+                            </span>
+                            <p className="m-0 text-xs text-[#9CA3AF] leading-relaxed">{b.notes}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </main>

@@ -15,6 +15,37 @@ function optionalAuth(req, res, next) {
   next()
 }
 
+function requireAuth(req, res, next) {
+  const header = req.headers.authorization
+  if (!header || !header.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Chưa đăng nhập.' })
+  }
+  try {
+    const payload = jwt.verify(header.slice(7), process.env.JWT_SECRET)
+    req.userId = payload.userId
+    next()
+  } catch {
+    return res.status(401).json({ message: 'Token không hợp lệ.' })
+  }
+}
+
+// GET /api/bookings/my
+router.get('/my', requireAuth, async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT id, name, phone, email, service, pkg, location, notes, booking_date, booking_slot, payment_method, price_vnd, status, created_at
+       FROM bookings
+       WHERE user_id = $1
+       ORDER BY created_at DESC`,
+      [req.userId]
+    )
+    res.json(result.rows)
+  } catch (err) {
+    console.error('GET /api/bookings/my error:', err)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 // POST /api/bookings
 router.post('/', optionalAuth, async (req, res) => {
   try {
