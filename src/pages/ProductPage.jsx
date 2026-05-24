@@ -10,6 +10,7 @@ import photo8 from '../assets/photo8.png'
 import photo9 from '../assets/photo9.png'
 import photo10 from '../assets/photo10.png'
 import photo11 from '../assets/photo11.png'
+import ScrollReveal from '../components/ScrollReveal.jsx'
 
 const FEATURED_PROJECT = {
   title: 'Dự án tiêu biểu',
@@ -70,46 +71,49 @@ const PROJECTS = [
   },
 ]
 
-function PortfolioImage({ src, alt, className = '', fullBleed = false }) {
+function PortfolioImage({ src, alt, className = '', rounded = 'rounded-[16px]' }) {
   return (
     <img
       src={src}
       alt={alt}
-      className={`block w-full object-cover ${fullBleed ? '' : 'rounded-[10px]'} ${className}`}
+      className={`block w-full object-cover transition-transform duration-700 ease-out group-hover:scale-102 ${rounded} ${className}`}
     />
   )
 }
 
 function HeaderSection() {
   return (
-    <section className="flex w-full flex-col bg-[#1E1E1E]">
-      <div className="flex w-full flex-col items-center gap-8 px-4 py-12 md:px-8 md:py-16 lg:px-5 lg:py-[80px] lg:pb-[65px]">
-        <div className="flex w-full max-w-[1240px] flex-col items-center gap-6 text-center md:gap-[26px]">
+    <section className="flex w-full flex-col bg-[#1E1E1E] px-4 py-10 md:px-8 md:py-14">
+      <div className="mx-auto flex w-full max-w-[1184px] flex-col items-center gap-6 text-center md:gap-[26px]">
+        <ScrollReveal>
           <span
-            className="text-[40px] leading-[100%] tracking-[-0.03em] text-[#E4E4E4] md:text-[56px] lg:text-[70px]"
+            className="text-[40px] font-bold leading-[100%] tracking-[-0.03em] text-[#E4E4E4] md:text-[56px] lg:text-[70px]"
             style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {FEATURED_PROJECT.title}
           </span>
+        </ScrollReveal>
+        <ScrollReveal delay={150}>
           <a
             href="#"
-            className="text-xl leading-[100%] tracking-[-0.03em] text-[#E4E4E4] underline md:text-[26px] lg:text-[32px]"
+            className="text-lg font-semibold leading-[100%] tracking-[-0.03em] text-[#E8C547] hover:text-[#F4D35E] underline md:text-[22px] lg:text-[26px] transition-colors"
             style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {FEATURED_PROJECT.linkLabel}
           </a>
-        </div>
+        </ScrollReveal>
       </div>
 
-      <div className="w-full">
-        <div className="mx-auto w-full max-w-[1280px]">
-          <PortfolioImage
-            src={FEATURED_PROJECT.imageSrc}
-            alt={FEATURED_PROJECT.title}
-            className="min-h-[280px] md:min-h-[460px] lg:min-h-[640px]"
-            fullBleed
-          />
-        </div>
+      <div className="mx-auto mt-10 w-full max-w-[1184px]">
+        <ScrollReveal delay={300}>
+          <div className="group overflow-hidden rounded-[24px] border border-[#2D2D2D] shadow-[0_20px_50px_rgba(0,0,0,0.4)] bg-[#141414]">
+            <img
+              src={FEATURED_PROJECT.imageSrc}
+              alt={FEATURED_PROJECT.title}
+              className="block w-full object-cover min-h-[300px] md:min-h-[480px] lg:min-h-[640px] scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
+            />
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )
@@ -117,24 +121,34 @@ function HeaderSection() {
 
 function ProjectCard({ title, description, imageSrc, imageClassName = '' }) {
   return (
-    <article className="flex w-full flex-col gap-8 rounded-[10px] border border-white px-4 py-4 md:px-8 md:py-8 lg:flex-row lg:items-center lg:gap-10 lg:px-[50px] lg:py-[50px]">
-      <div className="w-full flex-1">
-        <PortfolioImage src={imageSrc} alt={title} className={imageClassName} />
+    <article className="group flex w-full flex-col gap-8 rounded-[24px] border border-[#2D2D2D] bg-[#141414] px-5 py-5 md:px-8 md:py-8 lg:flex-row lg:items-center lg:gap-12 lg:px-12 lg:py-12 transition-all duration-500 hover:-translate-y-1.5 hover:border-[#E8C547]/40 hover:shadow-[0_20px_50px_rgba(232,197,71,0.06)]">
+      <div className="w-full flex-1 overflow-hidden rounded-[16px] border border-[#222222]">
+        <img 
+          src={imageSrc} 
+          alt={title} 
+          className={`block w-full object-cover rounded-[16px] scale-105 group-hover:scale-100 transition-transform duration-700 ease-out ${imageClassName}`} 
+        />
       </div>
 
-      <div className="flex w-full flex-1 flex-col items-start gap-6 md:px-4 lg:px-10 lg:gap-10">
+      <div className="flex w-full flex-1 flex-col items-start gap-6 lg:gap-8">
         <h2
-          className="m-0 text-[30px] leading-[120%] tracking-[-0.03em] text-white underline md:text-[36px] lg:text-[40px]"
+          className="m-0 text-[30px] leading-[120%] tracking-[-0.03em] text-white group-hover:text-[#E8C547] transition-colors md:text-[36px] lg:text-[40px]"
           style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {title}
         </h2>
         <p
-          className="m-0 text-base leading-[140%] tracking-[-0.03em] text-white md:text-lg lg:text-[20px] lg:leading-[110%]"
+          className="m-0 text-base leading-[150%] tracking-[-0.03em] text-[#9CA3AF] md:text-lg lg:text-[20px]"
           style={{ fontFamily: "'Rethink Sans', sans-serif" }}
         >
           {description}
         </p>
+        <span className="inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-[#E8C547] group-hover:translate-x-1.5 transition-transform duration-300">
+          Xem chi tiết dự án 
+          <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="2">
+            <path d="M6 12l4-4-4-4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
       </div>
     </article>
   )
@@ -143,16 +157,20 @@ function ProjectCard({ title, description, imageSrc, imageClassName = '' }) {
 function ProjectsSection() {
   return (
     <section className="flex w-full flex-col items-center gap-10 bg-[#1E1E1E] px-4 py-10 md:gap-14 md:px-8 md:py-16 lg:gap-[85px] lg:px-12">
-      <span
-        className="block w-full max-w-[1184px] text-center text-[40px] leading-[100%] tracking-[-0.03em] text-white md:text-[56px] lg:text-[70px]"
-        style={{ fontFamily: "'Gowun Batang', serif" }}
-      >
-        Những dự án khác
-      </span>
+      <ScrollReveal className="w-full text-center">
+        <span
+          className="block w-full max-w-[1184px] mx-auto text-[40px] leading-[100%] tracking-[-0.03em] text-white md:text-[56px] lg:text-[70px]"
+          style={{ fontFamily: "'Gowun Batang', serif" }}
+        >
+          Những dự án khác
+        </span>
+      </ScrollReveal>
 
-      <div className="flex w-full max-w-[1184px] flex-col gap-5">
-        {PROJECTS.map((project) => (
-          <ProjectCard key={project.title} {...project} />
+      <div className="flex w-full max-w-[1184px] flex-col gap-8">
+        {PROJECTS.map((project, idx) => (
+          <ScrollReveal key={project.title} delay={idx * 100} className="w-full">
+            <ProjectCard {...project} />
+          </ScrollReveal>
         ))}
       </div>
     </section>
@@ -196,7 +214,7 @@ function Footer() {
 
 export default function ProductPage() {
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col items-center bg-white">
+    <div className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col items-center bg-[#1E1E1E]">
       <Navbar />
       <HeaderSection />
       <ProjectsSection />
