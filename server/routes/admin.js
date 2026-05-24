@@ -41,6 +41,108 @@ router.get('/stats', requireAdmin, async (req, res) => {
   }
 })
 
+// GET /api/admin/chart-stats
+router.get('/chart-stats', requireAdmin, async (req, res) => {
+  try {
+    const dailyStatsQuery = `
+      WITH dates AS (
+        SELECT generate_series(
+          CURRENT_DATE - INTERVAL '6 days',
+          CURRENT_DATE,
+          '1 day'::interval
+        )::date AS date_val
+      ),
+      daily_bookings AS (
+        SELECT 
+          created_at::date AS booking_date,
+          COUNT(id) AS bookings_count,
+          COALESCE(SUM(price_vnd), 0) AS bookings_revenue
+        FROM bookings
+        WHERE created_at >= CURRENT_DATE - INTERVAL '6 days'
+        GROUP BY created_at::date
+      ),
+      daily_users AS (
+        SELECT 
+          created_at::date AS reg_date,
+          COUNT(id) AS users_count
+        FROM users
+        WHERE created_at >= CURRENT_DATE - INTERVAL '6 days' AND is_admin = FALSE
+        GROUP BY created_at::date
+      )
+      SELECT 
+        d.date_val AS date,
+        COALESCE(b.bookings_count, 0) AS bookings,
+        COALESCE(b.bookings_revenue, 0) AS revenue,
+        COALESCE(u.users_count, 0) AS users
+      FROM dates d
+      LEFT JOIN daily_bookings b ON d.date_val = b.booking_date
+      LEFT JOIN daily_users u ON d.date_val = u.reg_date
+      ORDER BY d.date_val ASC;
+    `
+
+    const topPackagesQuery = `
+      SELECT 
+        COALESCE(pkg, 'Khác') AS name,
+        COUNT(id) AS count
+      FROM bookings
+      GROUP BY pkg
+      ORDER BY count DESC
+      LIMIT 5;
+    `
+
+    const recentBookingsQuery = `
+      SELECT 
+        'booking' AS type,
+        name AS title,
+        service || ' (' || COALESCE(pkg, '') || ')' AS subtitle,
+        created_at AS time
+      FROM bookings
+      ORDER BY created_at DESC
+      LIMIT 5;
+    `
+
+    const recentUsersQuery = `
+      SELECT 
+        'user' AS type,
+        first_name || ' ' || last_name AS title,
+        email AS subtitle,
+        created_at AS time
+      FROM users
+      WHERE is_admin = FALSE
+      ORDER BY created_at DESC
+      LIMIT 5;
+    `
+
+    const [dailyRes, topPkgRes, recentBRes, recentURes] = await Promise.all([
+      pool.query(dailyStatsQuery),
+      pool.query(topPackagesQuery),
+      pool.query(recentBookingsQuery),
+      pool.query(recentUsersQuery),
+    ])
+
+    const recentActivities = [...recentBRes.rows, ...recentURes.rows]
+      .sort((a, b) => new Date(b.time) - new Date(a.time))
+      .slice(0, 8)
+
+    res.json({
+      dailyStats: dailyRes.rows.map(row => ({
+        date: row.date,
+        bookings: Number(row.bookings),
+        revenue: Number(row.revenue),
+        users: Number(row.users)
+      })),
+      topPackages: topPkgRes.rows.map(row => ({
+        name: row.name,
+        count: Number(row.count)
+      })),
+      recentActivities
+    })
+  } catch (err) {
+    console.error('GET /api/admin/chart-stats error:', err)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 // GET /api/admin/bookings?page=1&limit=20&status=pending
 router.get('/bookings', requireAdmin, async (req, res) => {
   try {
