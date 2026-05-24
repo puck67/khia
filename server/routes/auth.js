@@ -149,7 +149,7 @@ router.put('/profile', requireAuth, async (req, res) => {
     const result = await pool.query(
       `UPDATE users SET first_name=$1, last_name=$2, phone=$3, role=$4
        WHERE id=$5
-       RETURNING id, first_name, last_name, email, phone, role, created_at`,
+       RETURNING id, first_name, last_name, email, phone, role, is_admin, created_at`,
       [firstName, lastName, phone, role, req.userId]
     )
     const u = result.rows[0]
@@ -162,6 +162,7 @@ router.put('/profile', requireAuth, async (req, res) => {
         email: u.email,
         phone: u.phone,
         role: u.role,
+        isAdmin: u.is_admin,
       },
     })
   } catch (err) {

@@ -59,6 +59,20 @@ function UserDropdown() {
 
           {/* Menu items */}
           <div className="py-1">
+            {user.isAdmin && (
+              <Link
+                to="/admin"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#E8C547] transition-colors hover:bg-[#141414] hover:text-[#E8C547] font-semibold"
+                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              >
+                <svg viewBox="0 0 18 18" fill="none" className="h-4 w-4 shrink-0" aria-hidden="true">
+                  <path d="M12 15V9a3 3 0 00-6 0v6M3 15h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                  <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.4" />
+                </svg>
+                Trang quản trị
+              </Link>
+            )}
             <Link
               to="/profile"
               onClick={() => setOpen(false)}

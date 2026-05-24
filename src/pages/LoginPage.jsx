@@ -28,8 +28,13 @@ function AuthCard() {
       if (!res.ok) { setError(data.message || 'Đăng nhập thất bại.'); return }
       console.log('[Login] calling login(), user:', data.user)
       login(data, remember)
-      console.log('[Login] navigating to /')
-      navigate('/')
+      if (data.user?.isAdmin) {
+        console.log('[Login] navigating to /admin')
+        navigate('/admin')
+      } else {
+        console.log('[Login] navigating to /')
+        navigate('/')
+      }
     } catch {
       setError('Không thể kết nối server. Vui lòng thử lại.')
     } finally {

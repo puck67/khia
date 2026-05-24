@@ -32,8 +32,11 @@ export function AuthProvider({ children }) {
 
   const updateUser = (updated) => {
     const stored = localStorage.getItem('user') ? localStorage : sessionStorage
-    stored.setItem('user', JSON.stringify(updated))
-    setUser(updated)
+    setUser((prev) => {
+      const newUser = { ...prev, ...updated }
+      stored.setItem('user', JSON.stringify(newUser))
+      return newUser
+    })
   }
 
   return (
