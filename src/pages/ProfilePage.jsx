@@ -81,7 +81,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (!user) { navigate('/login'); return }
     // Fetch fresh profile from server
-    fetch('/api/auth/profile', { headers: { Authorization: `Bearer ${getToken()}` } })
+    fetch(`${import.meta.env.VITE_API_URL || ''}/api/auth/profile`, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((r) => r.json())
       .then((data) => {
         if (data.id) {
@@ -100,7 +100,7 @@ export default function ProfilePage() {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch('/api/auth/profile', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/auth/profile`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify(form),
@@ -122,7 +122,7 @@ export default function ProfilePage() {
     if (pwForm.next.length < 6) { showToast('Mật khẩu mới phải ít nhất 6 ký tự.', 'error'); return }
     setLoading(true)
     try {
-      const res = await fetch('/api/auth/password', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/auth/password`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({ currentPassword: pwForm.current, newPassword: pwForm.next }),
