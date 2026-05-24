@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import ScrollReveal from '../components/ScrollReveal.jsx'
 
 const WEEK_DAYS = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']
 
@@ -33,105 +34,108 @@ function Field({ label, required = false, children }) {
 
 function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
   return (
-    <div className="relative overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-[41px] py-[41px]">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[460px] w-[512px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(99.6%_57.81%_at_50%_50%,rgba(232,197,71,0.08)_0%,rgba(0,0,0,0)_70%)]" />
-      <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
-        Thông Tin Đặt Lịch
-      </h2>
+    <div className="relative overflow-hidden rounded-[24px] border border-[#222222] bg-[#141414] px-[30px] py-[40px] md:px-[40px] shadow-[0_16px_40px_rgba(0,0,0,0.35)] hover:border-[#E8C547]/20 transition-all duration-300 h-full flex flex-col justify-between">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[460px] w-[512px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(99.6%_57.81%_at_50%_50%,rgba(232,197,71,0.06)_0%,rgba(0,0,0,0)_70%)]" />
+      
+      <div>
+        <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+          Thông Tin Đặt Lịch
+        </h2>
 
-      <div className="relative mt-8 flex flex-col gap-6">
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Họ và tên" required>
+        <div className="relative mt-8 flex flex-col gap-6">
+          <div className="grid gap-4 md:grid-cols-2">
+            <Field label="Họ và tên" required>
+              <input
+                type="text"
+                placeholder="Nhập họ và tên"
+                value={form.name}
+                onChange={(e) => onChange('name', e.target.value)}
+                className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
+                style={{ fontFamily: "'Gowun Batang', serif" }}
+              />
+            </Field>
+            <Field label="Số điện thoại" required>
+              <input
+                type="text"
+                placeholder="Nhập số điện thoại"
+                value={form.phone}
+                onChange={(e) => onChange('phone', e.target.value)}
+                className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
+                style={{ fontFamily: "'Gowun Batang', serif" }}
+              />
+            </Field>
+          </div>
+
+          <Field label="Email" required>
             <input
-              type="text"
-              placeholder="Nhập họ và tên"
-              value={form.name}
-              onChange={(e) => onChange('name', e.target.value)}
-              className="h-[56.5px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280]"
+              type="email"
+              placeholder="Nhập email của bạn"
+              value={form.email}
+              onChange={(e) => onChange('email', e.target.value)}
+              className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
               style={{ fontFamily: "'Gowun Batang', serif" }}
             />
           </Field>
-          <Field label="Số điện thoại" required>
+
+          <Field label="Dịch vụ" required>
+            <div className="relative">
+              <select
+                value={form.service}
+                onChange={(e) => onChange('service', e.target.value)}
+                className={`h-[52px] w-full appearance-none rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] outline-none focus:border-[#E8C547]/50 ${form.service ? 'text-white font-medium' : 'text-[#9CA3AF]'}`}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
+              >
+                <option value="">Chọn dịch vụ</option>
+                {serviceOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+              </select>
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </div>
+          </Field>
+
+          <Field label="Gói dịch vụ">
+            <div className="relative">
+              <select
+                value={form.pkg}
+                onChange={(e) => onChange('pkg', e.target.value)}
+                className={`h-[52px] w-full appearance-none rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] outline-none focus:border-[#E8C547]/50 ${form.pkg ? 'text-white font-medium' : 'text-[#9CA3AF]'}`}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
+              >
+                <option value="">Chọn gói dịch vụ</option>
+                {pkgOptions.map((o) => <option key={o.name} value={o.name}>{o.name}</option>)}
+              </select>
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </div>
+          </Field>
+
+          <Field label="Địa điểm chụp">
             <input
               type="text"
-              placeholder="Nhập số điện thoại"
-              value={form.phone}
-              onChange={(e) => onChange('phone', e.target.value)}
-              className="h-[56.5px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280]"
+              placeholder="Nhập địa điểm mong muốn"
+              value={form.location}
+              onChange={(e) => onChange('location', e.target.value)}
+              className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
+              style={{ fontFamily: "'Gowun Batang', serif" }}
+            />
+          </Field>
+
+          <Field label="Yêu cầu thêm">
+            <textarea
+              placeholder="Mô tả chi tiết yêu cầu của bạn..."
+              value={form.notes}
+              onChange={(e) => onChange('notes', e.target.value)}
+              className="min-h-[120px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 py-4 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
               style={{ fontFamily: "'Gowun Batang', serif" }}
             />
           </Field>
         </div>
-
-        <Field label="Email" required>
-          <input
-            type="email"
-            placeholder="Nhập email của bạn"
-            value={form.email}
-            onChange={(e) => onChange('email', e.target.value)}
-            className="h-[56.5px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280]"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
-          />
-        </Field>
-
-        <Field label="Dịch vụ" required>
-          <div className="relative">
-            <select
-              value={form.service}
-              onChange={(e) => onChange('service', e.target.value)}
-              className="h-[58px] w-full appearance-none rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-[#9CA3AF] outline-none"
-              style={{ fontFamily: "'Gowun Batang', serif" }}
-            >
-              <option value="">Chọn dịch vụ</option>
-              {serviceOptions.map((o) => <option key={o} value={o}>{o}</option>)}
-            </select>
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
-              <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.333" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </div>
-        </Field>
-
-        <Field label="Gói dịch vụ">
-          <div className="relative">
-            <select
-              value={form.pkg}
-              onChange={(e) => onChange('pkg', e.target.value)}
-              className="h-[58px] w-full appearance-none rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-[#9CA3AF] outline-none"
-              style={{ fontFamily: "'Gowun Batang', serif" }}
-            >
-              <option value="">Chọn gói dịch vụ</option>
-              {pkgOptions.map((o) => <option key={o.name} value={o.name}>{o.name}</option>)}
-            </select>
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
-              <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
-                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.333" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </div>
-        </Field>
-
-        <Field label="Địa điểm chụp">
-          <input
-            type="text"
-            placeholder="Nhập địa điểm mong muốn"
-            value={form.location}
-            onChange={(e) => onChange('location', e.target.value)}
-            className="h-[56.5px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280]"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
-          />
-        </Field>
-
-        <Field label="Yêu cầu thêm">
-          <textarea
-            placeholder="Mô tả chi tiết yêu cầu của bạn..."
-            value={form.notes}
-            onChange={(e) => onChange('notes', e.target.value)}
-            className="min-h-[130px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 py-4 text-[15px] text-white outline-none placeholder:text-[rgba(255,255,255,0.5)]"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
-          />
-        </Field>
       </div>
     </div>
   )
@@ -184,108 +188,115 @@ function CalendarCard({ selectedDate, setSelectedDate, selectedSlot, setSelected
   }
 
   return (
-    <div className="relative overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-[41px] py-[41px]">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[460px] w-[512px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(99.6%_57.81%_at_50%_50%,rgba(214,40,40,0.05)_0%,rgba(0,0,0,0)_70%)]" />
-      <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
-        Chọn Ngày & Giờ
-      </h2>
+    <div className="relative overflow-hidden rounded-[24px] border border-[#222222] bg-[#141414] px-[30px] py-[40px] md:px-[40px] shadow-[0_16px_40px_rgba(0,0,0,0.35)] hover:border-[#E8C547]/20 transition-all duration-300 flex flex-col justify-between h-full">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[460px] w-[512px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(99.6%_57.81%_at_50%_50%,rgba(232,197,71,0.06)_0%,rgba(0,0,0,0)_70%)]" />
+      
+      <div>
+        <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+          Chọn Ngày & Giờ
+        </h2>
 
-      {/* Calendar */}
-      <div className="relative mt-8">
-        <div className="flex items-center justify-between">
-          <h3 className="m-0 text-[18px] font-bold leading-[27px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
-            {MONTH_NAMES[viewMonth]}, {viewYear}
-          </h3>
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={prevMonth}
-              disabled={!canGoPrev}
-              className={`flex h-9 w-9 items-center justify-center rounded-full border border-[#2A2A2A] bg-[#141414] transition-colors ${canGoPrev ? 'text-[#9CA3AF] hover:border-[#E8C547] hover:text-[#E8C547]' : 'cursor-not-allowed text-[#9CA3AF]/25'}`}
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              onClick={nextMonth}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2A2A2A] bg-[#141414] text-[#9CA3AF] transition-colors hover:border-[#E8C547] hover:text-[#E8C547]"
-            >
-              →
-            </button>
+        {/* Calendar */}
+        <div className="relative mt-8">
+          <div className="flex items-center justify-between">
+            <h3 className="m-0 text-[18px] font-bold leading-[27px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+              {MONTH_NAMES[viewMonth]}, {viewYear}
+            </h3>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={prevMonth}
+                disabled={!canGoPrev}
+                className={`flex h-9 w-9 items-center justify-center rounded-full border border-[#2D2D2D] bg-[#1C1C1C] transition-all ${canGoPrev ? 'text-[#9CA3AF] hover:border-[#E8C547] hover:text-[#E8C547]' : 'cursor-not-allowed text-[#9CA3AF]/20 border-[#2D2D2D]/50'}`}
+              >
+                <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M10 12L6 8l4-4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={nextMonth}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2D2D2D] bg-[#1C1C1C] text-[#9CA3AF] transition-all hover:border-[#E8C547] hover:text-[#E8C547]"
+              >
+                <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-5 grid grid-cols-7 text-center">
+            {WEEK_DAYS.map((day) => (
+              <span key={day} className="py-2 text-xs font-bold text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                {day}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-1 grid grid-cols-7 gap-1">
+            {cells.map((day, idx) => {
+              if (day === null) return <div key={`e-${idx}`} className="h-[42px]" />
+              const past = isPast(day)
+              const tod = isToday(day)
+              const sel = isSel(day)
+              return (
+                <button
+                  key={day}
+                  type="button"
+                  onClick={() => { if (!past) setSelectedDate({ year: viewYear, month: viewMonth, day }) }}
+                  disabled={past}
+                  className={`flex h-[42px] items-center justify-center rounded-[12px] border text-sm font-medium transition-all
+                    ${sel
+                      ? 'border-[#E8C547] bg-[#E8C547]/10 font-bold text-[#E8C547] shadow-[0_0_12px_rgba(232,197,71,0.1)]'
+                      : past
+                      ? 'cursor-not-allowed border-transparent text-[#9CA3AF]/20'
+                      : tod
+                      ? 'border-[#E8C547]/40 text-[#E8C547] hover:border-[#E8C547] hover:bg-[#E8C547]/5'
+                      : 'border-transparent text-[#9CA3AF] hover:border-[#2D2D2D] hover:bg-[#1C1C1C]'}`}
+                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                >
+                  {day}
+                </button>
+              )
+            })}
           </div>
         </div>
 
-        <div className="mt-5 grid grid-cols-7 text-center">
-          {WEEK_DAYS.map((day) => (
-            <span key={day} className="py-2 text-xs font-semibold text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-              {day}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-1 grid grid-cols-7 gap-1">
-          {cells.map((day, idx) => {
-            if (day === null) return <div key={`e-${idx}`} className="h-[46px]" />
-            const past = isPast(day)
-            const tod = isToday(day)
-            const sel = isSel(day)
-            return (
-              <button
-                key={day}
-                type="button"
-                onClick={() => { if (!past) setSelectedDate({ year: viewYear, month: viewMonth, day }) }}
-                disabled={past}
-                className={`flex h-[46px] items-center justify-center rounded-[10px] border text-sm font-medium transition-colors
-                  ${sel
-                    ? 'border-[#D62828] bg-[rgba(214,40,40,0.12)] font-bold text-[#D62828]'
-                    : past
-                    ? 'cursor-not-allowed border-transparent text-[#9CA3AF]/25'
-                    : tod
-                    ? 'border-[#E8C547]/40 text-[#E8C547] hover:border-[#E8C547] hover:bg-[rgba(232,197,71,0.08)]'
-                    : 'border-transparent text-[#9CA3AF] hover:border-[#2A2A2A] hover:bg-[#141414]'}`}
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-              >
-                {day}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Time picker */}
-      <div className="mt-8">
-        <h4
-          className="m-0 flex items-center gap-2 text-base font-bold leading-6 text-white"
-          style={{ fontFamily: "'Gowun Batang', serif" }}
-        >
-          <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5 shrink-0 text-[#E8C547]" aria-hidden="true">
-            <circle cx="10" cy="10" r="8.5" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M10 5.5V10.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          Chọn khung giờ
-        </h4>
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {TIME_SLOTS.map((slot) => {
-            const sel = selectedSlot === slot
-            return (
-              <button
-                key={slot}
-                type="button"
-                onClick={() => setSelectedSlot(slot)}
-                className={`h-[48px] rounded-[10px] border text-sm transition-colors ${sel ? 'border-[#E8C547] bg-[rgba(232,197,71,0.08)] font-semibold text-[#E8C547]' : 'border-[#2A2A2A] bg-[#141414] text-[#9CA3AF] hover:border-[#E8C547]/50 hover:text-white'}`}
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-              >
-                {slot}
-              </button>
-            )
-          })}
+        {/* Time picker */}
+        <div className="mt-8">
+          <h4
+            className="m-0 flex items-center gap-2 text-base font-bold leading-6 text-white"
+            style={{ fontFamily: "'Gowun Batang', serif" }}
+          >
+            <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5 shrink-0 text-[#E8C547]" aria-hidden="true">
+              <circle cx="10" cy="10" r="8.5" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M10 5.5V10.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Chọn khung giờ
+          </h4>
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {TIME_SLOTS.map((slot) => {
+              const sel = selectedSlot === slot
+              return (
+                <button
+                  key={slot}
+                  type="button"
+                  onClick={() => setSelectedSlot(slot)}
+                  className={`h-[48px] rounded-[12px] border text-sm transition-all ${sel ? 'border-[#E8C547] bg-[#E8C547]/10 font-semibold text-[#E8C547] shadow-[0_0_10px_rgba(232,197,71,0.05)]' : 'border-[#2D2D2D] bg-[#1C1C1C] text-[#9CA3AF] hover:border-[#E8C547]/50 hover:text-white'}`}
+                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                >
+                  {slot}
+                </button>
+              )
+            })}
+          </div>
         </div>
       </div>
 
       <button
         type="button"
         onClick={onConfirm}
-        className="mt-8 h-[67px] w-full rounded-[14px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-lg font-semibold text-[#0A0A0A] transition-opacity hover:opacity-90"
+        className="mt-10 h-[56px] w-full rounded-full bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_16px_rgba(232,197,71,0.25)] hover:scale-102 hover:shadow-[0_6px_20px_rgba(232,197,71,0.4)] transition-all duration-300"
         style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
       >
         Xác Nhận Đặt Lịch
@@ -350,31 +361,39 @@ export default function BookingPage() {
 
       <section className="bg-[linear-gradient(180deg,#141414_0%,#0A0A0A_100%)] px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto flex max-w-[1496px] flex-col items-center text-center">
-          <h1
-            className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[40px] font-bold leading-none tracking-[4px] text-transparent md:text-[52px] lg:text-[64px] lg:tracking-[8px]"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
-          >
-            ĐẶT LỊCH
-          </h1>
-          <p
-            className="mt-6 max-w-[600px] text-base leading-[160%] text-[#9CA3AF] md:text-lg"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
-          >
-            Hãy để chúng tôi lưu giữ những khoảnh khắc đẹp nhất của bạn bằng trải nghiệm đặt lịch rõ ràng và thuận tiện.
-          </p>
+          <ScrollReveal>
+            <h1
+              className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[40px] font-bold leading-none tracking-[4px] text-transparent md:text-[52px] lg:text-[64px] lg:tracking-[8px]"
+              style={{ fontFamily: "'Gowun Batang', serif" }}
+            >
+              ĐẶT LỊCH
+            </h1>
+          </ScrollReveal>
+          <ScrollReveal delay={150}>
+            <p
+              className="mt-6 max-w-[600px] text-base leading-[160%] text-[#9CA3AF] md:text-lg"
+              style={{ fontFamily: "'Gowun Batang', serif" }}
+            >
+              Hãy để chúng tôi lưu giữ những khoảnh khắc đẹp nhất của bạn bằng trải nghiệm đặt lịch rõ ràng và thuận tiện.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
       <main className="px-4 pb-20 pt-10 md:px-8 lg:pt-14">
-        <div className="mx-auto grid max-w-[1068px] gap-10 lg:grid-cols-2">
-          <BookingFormCard form={form} onChange={handleChange} serviceOptions={serviceOptions} pkgOptions={pkgOptions} />
-          <CalendarCard
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            selectedSlot={selectedSlot}
-            setSelectedSlot={setSelectedSlot}
-            onConfirm={handleConfirm}
-          />
+        <div className="mx-auto grid max-w-[1068px] gap-10 lg:grid-cols-2 items-stretch">
+          <ScrollReveal className="w-full h-full">
+            <BookingFormCard form={form} onChange={handleChange} serviceOptions={serviceOptions} pkgOptions={pkgOptions} />
+          </ScrollReveal>
+          <ScrollReveal delay={150} className="w-full h-full">
+            <CalendarCard
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              selectedSlot={selectedSlot}
+              setSelectedSlot={setSelectedSlot}
+              onConfirm={handleConfirm}
+            />
+          </ScrollReveal>
         </div>
       </main>
     </div>
