@@ -36,7 +36,7 @@ export default function BookingConfirmPage() {
 
   useEffect(() => {
     if (!form.service || !form.pkg) return
-    fetch(`http://localhost:3001/api/services/categories?service=${encodeURIComponent(form.service)}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/services/categories?service=${encodeURIComponent(form.service)}`)
       .then((r) => r.json())
       .then((cats) => {
         const match = cats.find((c) => c.name === form.pkg)

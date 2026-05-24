@@ -206,7 +206,7 @@ export default function ServicesPage() {
   const [packages, setPackages] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/services')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/services`)
       .then((res) => res.json())
       .then((data) => setPackages(Array.isArray(data) ? data : []))
       .catch((err) => console.error('Failed to load services:', err))

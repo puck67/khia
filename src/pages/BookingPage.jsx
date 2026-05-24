@@ -316,7 +316,7 @@ export default function BookingPage() {
   const [pkgOptions, setPkgOptions] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/services/options')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/services/options`)
       .then((r) => r.json())
       .then(setServiceOptions)
       .catch(() => {})
@@ -324,7 +324,7 @@ export default function BookingPage() {
 
   useEffect(() => {
     if (!form.service) { setPkgOptions([]); return }
-    fetch(`http://localhost:3001/api/services/categories?service=${encodeURIComponent(form.service)}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/services/categories?service=${encodeURIComponent(form.service)}`)
       .then((r) => r.json())
       .then(setPkgOptions)
       .catch(() => {})

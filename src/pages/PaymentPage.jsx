@@ -80,7 +80,7 @@ export default function PaymentPage() {
 
   useEffect(() => {
     if (!form.service || !form.pkg) return
-    fetch(`http://localhost:3001/api/services/categories?service=${encodeURIComponent(form.service)}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/services/categories?service=${encodeURIComponent(form.service)}`)
       .then((r) => r.json())
       .then((cats) => {
         const match = cats.find((c) => c.name === form.pkg)
@@ -94,7 +94,7 @@ export default function PaymentPage() {
   const handleSubmit = async () => {
     setSubmitting(true)
     try {
-      const res = await fetch('http://localhost:3001/api/bookings', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
