@@ -9,7 +9,10 @@ const bookingsRoutes = require('./routes/bookings')
 const app = express()
 const PORT = process.env.PORT || 3001
 
-app.use(cors({ origin: /^http:\/\/localhost:\d+$/, credentials: true }))
+app.use(cors({
+  origin: [/^http:\/\/localhost:\d+$/, /\.vercel\.app$/, /\.railway\.app$/],
+  credentials: true,
+}))
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
