@@ -1,13 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Rethink+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 *, *::before, *::after {
   box-sizing: border-box;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 body {
   margin: 0;
   background: #1E1E1E;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 #root {

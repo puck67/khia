@@ -132,7 +132,7 @@ export default function Navbar() {
             key={item.label}
             to={item.to}
             className="whitespace-nowrap text-center text-sm leading-[110%] tracking-[-0.03em] text-white md:text-lg"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
           >
             {item.label}
           </Link>

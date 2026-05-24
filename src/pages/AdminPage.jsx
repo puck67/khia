@@ -765,6 +765,228 @@ function RecentActivities({ activities }) {
   )
 }
 
+function ConsultationsTab({ token }) {
+  const [consults, setConsults] = useState([])
+  const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(1)
+  const [filter, setFilter] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [selectedConsult, setSelectedConsult] = useState(null)
+
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const qs = new URLSearchParams({ page, limit: 20, ...(filter ? { status: filter } : {}) })
+      const res = await fetch(`${API}/api/consultations?${qs}`, { headers: { Authorization: `Bearer ${token}` } })
+      const data = await res.json()
+      setConsults(data.consultations || [])
+      setTotal(data.total || 0)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }, [token, page, filter])
+
+  useEffect(() => { load() }, [load])
+
+  const updateStatus = async (id, status) => {
+    try {
+      await fetch(`${API}/api/consultations/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ status }),
+      })
+      load()
+      if (selectedConsult && selectedConsult.id === id) {
+        setSelectedConsult(prev => prev ? { ...prev, status } : null)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const viewDetail = async (id) => {
+    try {
+      const res = await fetch(`${API}/api/consultations/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+      const data = await res.json()
+      if (res.ok) {
+        setSelectedConsult(data)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const totalPages = Math.ceil(total / 20)
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Filter */}
+      <div className="flex flex-wrap gap-2">
+        {['', 'pending', 'completed'].map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => { setFilter(s); setPage(1) }}
+            className={`rounded-[8px] px-4 py-1.5 text-xs font-semibold transition-colors ${filter === s ? 'bg-[#E8C547] text-[#0A0A0A]' : 'border border-[#2A2A2A] text-[#9CA3AF] hover:text-white'}`}
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          >
+            {s === 'pending' ? 'Chờ xử lý' : s === 'completed' ? 'Đã xử lý' : 'Tất cả'}
+          </button>
+        ))}
+        <span className="ml-auto text-xs text-[#6B7280] self-center" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          {total} yêu cầu
+        </span>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto rounded-[16px] border border-[#2A2A2A]">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-[#2A2A2A] bg-[#141414]">
+              {['ID', 'Khách hàng', 'Ngày gửi', 'Trạng thái', 'Hành động'].map((h) => (
+                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr><td colSpan={5} className="px-4 py-8 text-center text-[#6B7280]">Đang tải...</td></tr>
+            ) : consults.length === 0 ? (
+              <tr><td colSpan={5} className="px-4 py-8 text-center text-[#6B7280]">Không có yêu cầu nào.</td></tr>
+            ) : consults.map((c) => (
+              <tr key={c.id} className="border-b border-[#1E1E1E] bg-[#1A1A1A] hover:bg-[#1E1E1E]">
+                <td className="px-4 py-3 text-[#6B7280]">#{c.id}</td>
+                <td className="px-4 py-3">
+                  <div className="font-semibold text-white">{c.name}</div>
+                  <div className="text-xs text-[#9CA3AF]">{c.email}</div>
+                  <div className="text-xs text-[#6B7280]">{c.phone}</div>
+                </td>
+                <td className="px-4 py-3 text-[#9CA3AF]">
+                  {new Date(c.created_at).toLocaleString('vi-VN')}
+                </td>
+                <td className="px-4 py-3">
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${c.status === 'completed' ? 'bg-green-500/15 text-green-400' : 'bg-yellow-500/15 text-yellow-400'}`}>
+                    {c.status === 'completed' ? 'Đã xử lý' : 'Chờ xử lý'}
+                  </span>
+                </td>
+                <td className="px-4 py-3 flex gap-2 items-center">
+                  <button
+                    type="button"
+                    onClick={() => viewDetail(c.id)}
+                    className="rounded-[8px] bg-[#1A1A1A] border border-[#2D2D2D] text-xs font-semibold text-white px-3 py-1.5 hover:border-[#E8C547] transition-all"
+                  >
+                    Chi tiết
+                  </button>
+                  <select
+                    value={c.status}
+                    onChange={(e) => updateStatus(c.id, e.target.value)}
+                    className="rounded-[8px] border border-[#2A2A2A] bg-[#141414] px-2 py-1.5 text-xs text-white"
+                  >
+                    <option value="pending">Chờ xử lý</option>
+                    <option value="completed">Đã xử lý</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2">
+          <button disabled={page === 1} onClick={() => setPage(p => p - 1)} className="rounded-[8px] border border-[#2A2A2A] px-3 py-1.5 text-xs text-[#9CA3AF] disabled:opacity-40 hover:text-white">←</button>
+          <span className="text-xs text-[#6B7280]">{page} / {totalPages}</span>
+          <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)} className="rounded-[8px] border border-[#2A2A2A] px-3 py-1.5 text-xs text-[#9CA3AF] disabled:opacity-40 hover:text-white">→</button>
+        </div>
+      )}
+
+      {/* Modal chi tiết */}
+      {selectedConsult && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <div className="relative w-full max-w-[500px] rounded-[24px] border border-[#2D2D2D] bg-[#141414] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <button
+              onClick={() => setSelectedConsult(null)}
+              className="absolute right-6 top-6 text-[#9CA3AF] hover:text-white transition-colors"
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            <h3 className="m-0 text-xl font-bold text-white mb-6 border-b border-[#2D2D2D] pb-3" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+              Chi tiết yêu cầu #{selectedConsult.id}
+            </h3>
+
+            <div className="flex flex-col gap-4 text-sm">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Họ và tên</span>
+                <p className="m-0 mt-1 font-semibold text-white text-base">{selectedConsult.name}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Email</span>
+                  <p className="m-0 mt-1 text-white truncate">{selectedConsult.email}</p>
+                </div>
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Số điện thoại</span>
+                  <p className="m-0 mt-1 text-white">{selectedConsult.phone}</p>
+                </div>
+              </div>
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Ngày gửi</span>
+                <p className="m-0 mt-1 text-[#9CA3AF]">{new Date(selectedConsult.created_at).toLocaleString('vi-VN')}</p>
+              </div>
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Trạng thái</span>
+                <div className="mt-1">
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${selectedConsult.status === 'completed' ? 'bg-green-500/15 text-green-400' : 'bg-yellow-500/15 text-yellow-400'}`}>
+                    {selectedConsult.status === 'completed' ? 'Đã xử lý' : 'Chờ xử lý'}
+                  </span>
+                </div>
+              </div>
+              {selectedConsult.notes && (
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Ghi chú tư vấn</span>
+                  <p className="m-0 mt-1 text-[#9CA3AF] whitespace-pre-wrap rounded-[12px] bg-[#1A1A1A] p-4 border border-[#2D2D2D]">{selectedConsult.notes}</p>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-8 flex gap-3">
+              {selectedConsult.status === 'pending' ? (
+                <button
+                  onClick={() => updateStatus(selectedConsult.id, 'completed')}
+                  className="flex-1 rounded-full bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] py-3 text-sm font-bold uppercase tracking-wider text-[#0A0A0A] hover:scale-102 transition-transform shadow-[0_4px_16px_rgba(232,197,71,0.2)]"
+                >
+                  Đánh dấu đã xử lý
+                </button>
+              ) : (
+                <button
+                  onClick={() => updateStatus(selectedConsult.id, 'pending')}
+                  className="flex-1 rounded-full border border-[#2D2D2D] bg-[#1A1A1A] py-3 text-sm font-semibold text-white hover:border-[#E8C547]/40 hover:text-[#E8C547] transition-all"
+                >
+                  Đánh dấu chờ xử lý
+                </button>
+              )}
+              <button
+                onClick={() => setSelectedConsult(null)}
+                className="rounded-full border border-[#2D2D2D] bg-[#1A1A1A] px-6 py-3 text-sm font-semibold text-[#9CA3AF] hover:text-white hover:border-white transition-all"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── MAIN ────────────────────────────────────────────────────────────────────
 export default function AdminPage() {
   const { user, getToken } = useAuth()
@@ -882,6 +1104,7 @@ export default function AdminPage() {
             <TabBtn active={tab === 'bookings'} onClick={() => setTab('bookings')}>Booking</TabBtn>
             <TabBtn active={tab === 'users'} onClick={() => setTab('users')}>Người dùng</TabBtn>
             <TabBtn active={tab === 'services'} onClick={() => setTab('services')}>Dịch vụ & Giá</TabBtn>
+            <TabBtn active={tab === 'consultations'} onClick={() => setTab('consultations')}>Yêu cầu tư vấn</TabBtn>
           </div>
 
           {/* Tab content */}
@@ -921,6 +1144,7 @@ export default function AdminPage() {
           {tab === 'bookings' && <BookingsTab token={token} />}
           {tab === 'users' && <UsersTab token={token} />}
           {tab === 'services' && <ServicesTab token={token} />}
+          {tab === 'consultations' && <ConsultationsTab token={token} />}
         </div>
       </main>
     </div>

@@ -131,13 +131,13 @@ export default function PaymentPage() {
           </div>
           <h1
             className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[36px] font-bold leading-none tracking-[3px] text-transparent md:text-[48px] lg:text-[56px] lg:tracking-[6px]"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
           >
             THANH TOÁN
           </h1>
           <p
             className="mt-4 max-w-[480px] text-base leading-[160%] text-[#9CA3AF]"
-            style={{ fontFamily: "'Gowun Batang', serif" }}
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
           >
             Chọn phương thức thanh toán và xác nhận đặt lịch của bạn.
           </p>
@@ -153,7 +153,7 @@ export default function PaymentPage() {
               <div className="border-b border-[#2A2A2A] px-8 py-6">
                 <h2
                   className="m-0 text-[18px] font-bold text-white"
-                  style={{ fontFamily: "'Gowun Batang', serif" }}
+                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                 >
                   Phương thức thanh toán
                 </h2>
@@ -245,7 +245,7 @@ export default function PaymentPage() {
               <div className="border-b border-[#2A2A2A] px-8 py-6">
                 <h2
                   className="m-0 text-[18px] font-bold text-white"
-                  style={{ fontFamily: "'Gowun Batang', serif" }}
+                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                 >
                   Tóm tắt đơn
                 </h2>

@@ -23,7 +23,7 @@ function Field({ label, required = false, placeholder, type = 'text', value, onC
         <input
           type={type} placeholder={placeholder} value={value} onChange={onChange} required={required}
           className={`h-[56.5px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 ${rightIcon ? 'pr-14' : ''}`}
-          style={{ fontFamily: "'Gowun Batang', serif" }}
+          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
         />
         {rightIcon && (
           <button type="button" onClick={onToggle} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-white" aria-label="Hiện nội dung">
@@ -75,7 +75,7 @@ function AuthCard() {
       <div className="pointer-events-none absolute left-1/2 top-0 h-[580px] w-[518px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(119.66%_55.03%_at_50%_50%,rgba(232,197,71,0.08)_0%,rgba(0,0,0,0)_70%)]" />
 
       <div className="relative flex flex-col items-center gap-3 text-center">
-        <h1 className="m-0 text-[32px] font-bold leading-[48px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>Tạo Tài Khoản</h1>
+        <h1 className="m-0 text-[32px] font-bold leading-[48px] text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>Tạo Tài Khoản</h1>
         <p className="m-0 text-sm leading-[22px] text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
           Đã có tài khoản?{' '}
           <Link to="/login" className="text-[#E8C547]">Đăng nhập ngay</Link>
@@ -103,7 +103,7 @@ function AuthCard() {
           <div className="relative">
             <select value={form.role} onChange={set('role')}
               className="h-[58px] w-full appearance-none rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-[#9CA3AF] outline-none focus:border-[#E8C547]/50"
-              style={{ fontFamily: "'Gowun Batang', serif" }}
+              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
             >
               <option value="" disabled>Chọn vai trò của bạn</option>
               <option value="ca-nhan">Cá nhân</option>

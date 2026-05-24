@@ -33,7 +33,7 @@ function InputField({ label, value, onChange, type = 'text', placeholder, disabl
           placeholder={placeholder}
           disabled={disabled}
           className={`h-[52px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] transition-colors focus:border-[#E8C547]/50 ${disabled ? 'cursor-not-allowed opacity-50' : ''} ${rightIcon ? 'pr-14' : ''}`}
-          style={{ fontFamily: "'Gowun Batang', serif" }}
+          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
         />
         {rightIcon && (
           <button type="button" onClick={onToggle} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-white">
@@ -156,7 +156,7 @@ export default function ProfilePage() {
                 {initials}
               </div>
               <div className="flex flex-col gap-1">
-                <h1 className="m-0 text-[26px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                <h1 className="m-0 text-[26px] font-bold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
                   {fullName || 'Người dùng'}
                 </h1>
                 <p className="m-0 text-sm text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
@@ -190,7 +190,7 @@ export default function ProfilePage() {
           {/* Tab: Info */}
           {tab === 'info' && (
             <form onSubmit={handleSaveInfo} className="overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-8 py-8 md:px-10">
-              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
                 Thông tin cá nhân
               </h2>
               <div className="flex flex-col gap-5">
@@ -227,7 +227,7 @@ export default function ProfilePage() {
                       value={form.role}
                       onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
                       className="h-[52px] w-full appearance-none rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-[#9CA3AF] outline-none focus:border-[#E8C547]/50"
-                      style={{ fontFamily: "'Gowun Batang', serif" }}
+                      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                     >
                       <option value="ca-nhan">Cá nhân</option>
                       <option value="thuong-hieu">Thương hiệu</option>
@@ -257,7 +257,7 @@ export default function ProfilePage() {
           {/* Tab: Password */}
           {tab === 'password' && (
             <form onSubmit={handleChangePassword} className="overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-8 py-8 md:px-10">
-              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
+              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
                 Đổi mật khẩu
               </h2>
               <div className="flex flex-col gap-5">
