@@ -88,7 +88,7 @@ function HeaderSection() {
         <ScrollReveal>
           <span
             className="text-[40px] font-bold leading-[100%] tracking-[-0.03em] text-[#E4E4E4] md:text-[56px] lg:text-[70px]"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {FEATURED_PROJECT.title}
           </span>
@@ -97,7 +97,7 @@ function HeaderSection() {
           <a
             href="#"
             className="text-lg font-semibold leading-[100%] tracking-[-0.03em] text-[#E8C547] hover:text-[#F4D35E] underline md:text-[22px] lg:text-[26px] transition-colors"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {FEATURED_PROJECT.linkLabel}
           </a>
@@ -133,13 +133,13 @@ function ProjectCard({ title, description, imageSrc, imageClassName = '' }) {
       <div className="flex w-full flex-1 flex-col items-start gap-6 lg:gap-8">
         <h2
           className="m-0 text-[30px] leading-[120%] tracking-[-0.03em] text-white group-hover:text-[#E8C547] transition-colors md:text-[36px] lg:text-[40px]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {title}
         </h2>
         <p
           className="m-0 text-base leading-[150%] tracking-[-0.03em] text-[#9CA3AF] md:text-lg lg:text-[20px]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {description}
         </p>
@@ -160,7 +160,7 @@ function ProjectsSection() {
       <ScrollReveal className="w-full text-center">
         <span
           className="block w-full max-w-[1184px] mx-auto text-[40px] leading-[100%] tracking-[-0.03em] text-white md:text-[56px] lg:text-[70px]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Những dự án khác
         </span>
@@ -192,7 +192,7 @@ function Footer() {
             <p
               key={line}
               className="m-0 w-full text-[20px] leading-[130%] tracking-[-0.03em] text-[#FCFAF6] md:text-[24px] lg:text-[30px] lg:leading-[120%]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               {line}
             </p>
@@ -203,7 +203,7 @@ function Footer() {
       <div className="mx-auto flex w-full max-w-[1240px] justify-center lg:justify-start">
         <span
           className="text-center text-sm leading-[110%] tracking-[-0.03em] text-[#E4E4E4] md:text-base lg:text-left"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Phiền TV © 2025 All Rights Reserved
         </span>

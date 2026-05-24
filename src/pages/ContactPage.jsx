@@ -56,13 +56,13 @@ function ContactInfoCard() {
     <div className="w-full rounded-[24px] border border-[#2D2D2D] bg-[#141414] px-8 py-10 md:px-10 md:py-10 shadow-[0_16px_40px_rgba(0,0,0,0.35)] hover:border-[#E8C547]/20 transition-all duration-300 h-full">
       <h2
         className="m-0 text-[28px] font-bold leading-[41px] text-white"
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         Thông tin liên hệ
       </h2>
       <p
         className="mt-2 text-lg leading-[26px] text-[#9CA3AF]"
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         Liên hệ để được tư vấn trực tiếp
       </p>
@@ -76,7 +76,7 @@ function ContactInfoCard() {
             <div>
               <p
                 className="m-0 text-base leading-[23px] text-[#E4E4E4] font-medium"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 {item.value}
               </p>
@@ -90,7 +90,7 @@ function ContactInfoCard() {
           <span
             key={item}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#2D2D2D] bg-[#1A1A1A] text-sm text-[#9CA3AF] hover:bg-[#E8C547] hover:text-[#0A0A0A] hover:border-transparent cursor-pointer transition-all duration-300"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {item}
           </span>
@@ -104,7 +104,7 @@ function Toast({ message, type }) {
   if (!message) return null
   return (
     <div className={`fixed top-24 right-6 z-[9999] flex items-center gap-3 rounded-[12px] border px-5 py-3 shadow-lg transition-all ${type === 'success' ? 'border-[#E8C547]/30 bg-[rgba(232,197,71,0.1)] text-[#E8C547]' : 'border-[#D62828]/30 bg-[rgba(214,40,40,0.1)] text-[#D62828]'}`}
-      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+      style={{ fontFamily: "'Gowun Batang', serif" }}
     >
       {type === 'success'
         ? <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5 shrink-0"><circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.5" /><path d="M6.5 10.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -120,13 +120,13 @@ function ContactFormCard({ form, setForm, handleSubmit, loading }) {
     <div className="w-full rounded-[24px] border border-[#2D2D2D] bg-[#141414] px-8 py-10 md:px-10 md:py-10 shadow-[0_16px_40px_rgba(0,0,0,0.35)] hover:border-[#E8C547]/20 transition-all duration-300 h-full">
       <h2
         className="m-0 text-[28px] font-bold leading-[41px] text-white"
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         Thông tin khách hàng
       </h2>
       <p
         className="mt-2 text-lg leading-[26px] text-[#9CA3AF]"
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         Để lại thông tin để chúng tôi có thể liên hệ tư vấn
       </p>
@@ -139,7 +139,7 @@ function ContactFormCard({ form, setForm, handleSubmit, loading }) {
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           required
           className="h-[52px] rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-base text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 transition-colors"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         />
         <input
           type="email"
@@ -148,7 +148,7 @@ function ContactFormCard({ form, setForm, handleSubmit, loading }) {
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
           className="h-[52px] rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-base text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 transition-colors"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         />
         <input
           type="text"
@@ -157,14 +157,14 @@ function ContactFormCard({ form, setForm, handleSubmit, loading }) {
           onChange={(e) => setForm({ ...form, phone: e.target.value })}
           required
           className="h-[52px] rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-base text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 transition-colors"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         />
 
         <button
           type="submit"
           disabled={loading}
           className="mt-4 inline-flex h-[52px] w-[160px] items-center justify-center rounded-full bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-sm font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_16px_rgba(232,197,71,0.25)] hover:scale-103 hover:shadow-[0_6px_20px_rgba(232,197,71,0.4)] transition-all duration-300 disabled:opacity-60"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {loading ? 'Đang gửi...' : 'Gửi ngay'}
         </button>
@@ -195,7 +195,7 @@ function ContactHero() {
         <ScrollReveal>
           <h1
             className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[40px] font-bold leading-none tracking-[4px] text-transparent md:text-[52px] lg:text-[64px] lg:tracking-[8px]"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             LIÊN HỆ
           </h1>
@@ -225,7 +225,7 @@ function Footer() {
             <p
               key={line}
               className="m-0 w-full text-[20px] leading-[130%] tracking-[-0.03em] text-[#FCFAF6] md:text-[24px] lg:text-[30px] lg:leading-[120%]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               {line}
             </p>
@@ -236,7 +236,7 @@ function Footer() {
       <div className="mx-auto flex w-full max-w-[1240px] justify-center lg:justify-start">
         <span
           className="text-center text-sm leading-[110%] tracking-[-0.03em] text-[#E4E4E4] md:text-base lg:text-left"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Phiền TV © 2025 All Rights Reserved
         </span>

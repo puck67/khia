@@ -48,13 +48,13 @@ function SummaryRow({ label, value, highlight }) {
     <div className="flex items-center justify-between gap-4">
       <span
         className="text-sm text-[#9CA3AF]"
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         {label}
       </span>
       <span
         className={`text-sm font-semibold ${highlight ? 'text-[#E8C547]' : 'text-white'}`}
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         {value}
       </span>
@@ -131,13 +131,13 @@ export default function PaymentPage() {
           </div>
           <h1
             className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[36px] font-bold leading-none tracking-[3px] text-transparent md:text-[48px] lg:text-[56px] lg:tracking-[6px]"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             THANH TOÁN
           </h1>
           <p
             className="mt-4 max-w-[480px] text-base leading-[160%] text-[#9CA3AF]"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             Chọn phương thức thanh toán và xác nhận đặt lịch của bạn.
           </p>
@@ -153,7 +153,7 @@ export default function PaymentPage() {
               <div className="border-b border-[#2A2A2A] px-8 py-6">
                 <h2
                   className="m-0 text-[18px] font-bold text-white"
-                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                  style={{ fontFamily: "'Gowun Batang', serif" }}
                 >
                   Phương thức thanh toán
                 </h2>
@@ -175,7 +175,7 @@ export default function PaymentPage() {
                     </div>
                     <span
                       className={`text-[15px] font-semibold ${selectedMethod === method.id ? 'text-white' : 'text-[#9CA3AF]'}`}
-                      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                      style={{ fontFamily: "'Gowun Batang', serif" }}
                     >
                       {method.label}
                     </span>
@@ -191,7 +191,7 @@ export default function PaymentPage() {
               {/* Bank transfer details */}
               {selectedMethod === 'bank' && (
                 <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-5">
-                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.1em] text-[#E8C547]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.1em] text-[#E8C547]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                     Thông tin chuyển khoản
                   </p>
                   <div className="flex flex-col gap-2">
@@ -202,8 +202,8 @@ export default function PaymentPage() {
                       ['Nội dung CK', `Dat lich ${form.name || ''}`],
                     ].map(([label, val]) => (
                       <div key={label} className="flex items-center justify-between gap-4">
-                        <span className="text-sm text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{label}</span>
-                        <span className="text-sm font-semibold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{val}</span>
+                        <span className="text-sm text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>{label}</span>
+                        <span className="text-sm font-semibold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>{val}</span>
                       </div>
                     ))}
                   </div>
@@ -212,7 +212,7 @@ export default function PaymentPage() {
 
               {selectedMethod === 'momo' && (
                 <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-5">
-                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.1em] text-[#E8C547]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.1em] text-[#E8C547]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                     Thông tin MoMo
                   </p>
                   <div className="flex flex-col gap-2">
@@ -221,8 +221,8 @@ export default function PaymentPage() {
                       ['Tên tài khoản', 'PHIEN TV MEDIA'],
                     ].map(([label, val]) => (
                       <div key={label} className="flex items-center justify-between gap-4">
-                        <span className="text-sm text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{label}</span>
-                        <span className="text-sm font-semibold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{val}</span>
+                        <span className="text-sm text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>{label}</span>
+                        <span className="text-sm font-semibold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>{val}</span>
                       </div>
                     ))}
                   </div>
@@ -231,7 +231,7 @@ export default function PaymentPage() {
 
               {selectedMethod === 'cash' && (
                 <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-5">
-                  <p className="text-sm leading-[170%] text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                  <p className="text-sm leading-[170%] text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                     Thanh toán tiền mặt trực tiếp tại buổi chụp/quay. Đội ngũ sẽ xác nhận lịch hẹn qua điện thoại trước.
                   </p>
                 </div>
@@ -245,7 +245,7 @@ export default function PaymentPage() {
               <div className="border-b border-[#2A2A2A] px-8 py-6">
                 <h2
                   className="m-0 text-[18px] font-bold text-white"
-                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                  style={{ fontFamily: "'Gowun Batang', serif" }}
                 >
                   Tóm tắt đơn
                 </h2>
@@ -266,7 +266,7 @@ export default function PaymentPage() {
               onClick={handleSubmit}
               disabled={submitting}
               className="flex h-[56px] w-full items-center justify-center gap-2 rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-bold text-[#0A0A0A] transition-opacity hover:opacity-90 disabled:opacity-60"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               {submitting ? 'Đang xử lý...' : 'Xác nhận đặt lịch →'}
             </button>
@@ -275,7 +275,7 @@ export default function PaymentPage() {
               type="button"
               onClick={() => navigate(-1)}
               className="flex h-[48px] w-full items-center justify-center gap-2 rounded-[12px] border border-[#2A2A2A] bg-transparent text-sm font-semibold text-[#9CA3AF] transition-colors hover:border-[#E8C547]/40 hover:text-white"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               ← Quay lại
             </button>

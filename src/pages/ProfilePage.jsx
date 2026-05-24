@@ -22,7 +22,7 @@ function EyeIcon() {
 function InputField({ label, value, onChange, type = 'text', placeholder, disabled = false, rightIcon, onToggle }) {
   return (
     <div className="flex flex-col gap-[10px]">
-      <label className="text-sm font-medium text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+      <label className="text-sm font-medium text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
         {label}
       </label>
       <div className="relative">
@@ -33,7 +33,7 @@ function InputField({ label, value, onChange, type = 'text', placeholder, disabl
           placeholder={placeholder}
           disabled={disabled}
           className={`h-[52px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] transition-colors focus:border-[#E8C547]/50 ${disabled ? 'cursor-not-allowed opacity-50' : ''} ${rightIcon ? 'pr-14' : ''}`}
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         />
         {rightIcon && (
           <button type="button" onClick={onToggle} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-white">
@@ -49,7 +49,7 @@ function Toast({ message, type }) {
   if (!message) return null
   return (
     <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-[12px] border px-5 py-3 shadow-lg transition-all ${type === 'success' ? 'border-[#E8C547]/30 bg-[rgba(232,197,71,0.1)] text-[#E8C547]' : 'border-[#D62828]/30 bg-[rgba(214,40,40,0.1)] text-[#D62828]'}`}
-      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+      style={{ fontFamily: "'Gowun Batang', serif" }}
     >
       {type === 'success'
         ? <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5 shrink-0"><circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.5" /><path d="M6.5 10.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -156,13 +156,13 @@ export default function ProfilePage() {
                 {initials}
               </div>
               <div className="flex flex-col gap-1">
-                <h1 className="m-0 text-[26px] font-bold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                <h1 className="m-0 text-[26px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
                   {fullName || 'Người dùng'}
                 </h1>
-                <p className="m-0 text-sm text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                <p className="m-0 text-sm text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                   {user?.email}
                 </p>
-                <span className="mt-1 inline-flex w-fit items-center rounded-full border border-[#E8C547]/20 bg-[rgba(232,197,71,0.08)] px-3 py-0.5 text-xs font-medium text-[#E8C547]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                <span className="mt-1 inline-flex w-fit items-center rounded-full border border-[#E8C547]/20 bg-[rgba(232,197,71,0.08)] px-3 py-0.5 text-xs font-medium text-[#E8C547]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                   {ROLE_LABELS[user?.role] || user?.role}
                 </span>
               </div>
@@ -180,7 +180,7 @@ export default function ProfilePage() {
                 type="button"
                 onClick={() => setTab(t.key)}
                 className={`flex-1 rounded-[10px] py-2.5 text-sm font-semibold transition-colors ${tab === t.key ? 'bg-[#E8C547] text-[#0A0A0A]' : 'text-[#9CA3AF] hover:text-white'}`}
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 {t.label}
               </button>
@@ -190,7 +190,7 @@ export default function ProfilePage() {
           {/* Tab: Info */}
           {tab === 'info' && (
             <form onSubmit={handleSaveInfo} className="overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-8 py-8 md:px-10">
-              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
                 Thông tin cá nhân
               </h2>
               <div className="flex flex-col gap-5">
@@ -219,7 +219,7 @@ export default function ProfilePage() {
                 />
 
                 <div className="flex flex-col gap-[10px]">
-                  <label className="text-sm font-medium text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                  <label className="text-sm font-medium text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                     Vai trò
                   </label>
                   <div className="relative">
@@ -227,7 +227,7 @@ export default function ProfilePage() {
                       value={form.role}
                       onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
                       className="h-[52px] w-full appearance-none rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-[#9CA3AF] outline-none focus:border-[#E8C547]/50"
-                      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                      style={{ fontFamily: "'Gowun Batang', serif" }}
                     >
                       <option value="ca-nhan">Cá nhân</option>
                       <option value="thuong-hieu">Thương hiệu</option>
@@ -247,7 +247,7 @@ export default function ProfilePage() {
                 type="submit"
                 disabled={loading}
                 className="mt-8 h-[52px] w-full rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-semibold text-[#0A0A0A] transition-opacity hover:opacity-90 disabled:opacity-60"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 {loading ? 'Đang lưu...' : 'Lưu thay đổi'}
               </button>
@@ -257,7 +257,7 @@ export default function ProfilePage() {
           {/* Tab: Password */}
           {tab === 'password' && (
             <form onSubmit={handleChangePassword} className="overflow-hidden rounded-[20px] border border-[#2A2A2A] bg-[#1A1A1A] px-8 py-8 md:px-10">
-              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+              <h2 className="m-0 mb-6 text-[20px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
                 Đổi mật khẩu
               </h2>
               <div className="flex flex-col gap-5">
@@ -294,7 +294,7 @@ export default function ProfilePage() {
                 type="submit"
                 disabled={loading}
                 className="mt-8 h-[52px] w-full rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-semibold text-[#0A0A0A] transition-opacity hover:opacity-90 disabled:opacity-60"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 {loading ? 'Đang đổi...' : 'Đổi mật khẩu'}
               </button>

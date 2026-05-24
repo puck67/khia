@@ -15,7 +15,7 @@ function EyeIcon() {
 function Field({ label, required = false, placeholder, type = 'text', value, onChange, rightIcon = null, onToggle = null }) {
   return (
     <div className="flex flex-col gap-[10px]">
-      <label className="text-sm font-medium leading-[21px] text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+      <label className="text-sm font-medium leading-[21px] text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
         {label}
         {required && <span className="text-[#D93F3F]"> *</span>}
       </label>
@@ -23,7 +23,7 @@ function Field({ label, required = false, placeholder, type = 'text', value, onC
         <input
           type={type} placeholder={placeholder} value={value} onChange={onChange} required={required}
           className={`h-[56.5px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 ${rightIcon ? 'pr-14' : ''}`}
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         />
         {rightIcon && (
           <button type="button" onClick={onToggle} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-white" aria-label="Hiện nội dung">
@@ -75,8 +75,8 @@ function AuthCard() {
       <div className="pointer-events-none absolute left-1/2 top-0 h-[580px] w-[518px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(119.66%_55.03%_at_50%_50%,rgba(232,197,71,0.08)_0%,rgba(0,0,0,0)_70%)]" />
 
       <div className="relative flex flex-col items-center gap-3 text-center">
-        <h1 className="m-0 text-[32px] font-bold leading-[48px] text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>Tạo Tài Khoản</h1>
-        <p className="m-0 text-sm leading-[22px] text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <h1 className="m-0 text-[32px] font-bold leading-[48px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>Tạo Tài Khoản</h1>
+        <p className="m-0 text-sm leading-[22px] text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
           Đã có tài khoản?{' '}
           <Link to="/login" className="text-[#E8C547]">Đăng nhập ngay</Link>
         </p>
@@ -84,7 +84,7 @@ function AuthCard() {
 
       <form className="relative mt-9 flex flex-col gap-5" onSubmit={handleSubmit}>
         {error && (
-          <div className="rounded-[10px] border border-[#D62828]/40 bg-[rgba(214,40,40,0.08)] px-4 py-3 text-sm text-[#D62828]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <div className="rounded-[10px] border border-[#D62828]/40 bg-[rgba(214,40,40,0.08)] px-4 py-3 text-sm text-[#D62828]" style={{ fontFamily: "'Gowun Batang', serif" }}>
             {error}
           </div>
         )}
@@ -99,11 +99,11 @@ function AuthCard() {
         <Field label="Xác nhận mật khẩu" required placeholder="Nhập lại mật khẩu" type={showConfirm ? 'text' : 'password'} value={form.confirmPassword} onChange={set('confirmPassword')} rightIcon={<EyeIcon />} onToggle={() => setShowConfirm((v) => !v)} />
 
         <div className="flex flex-col gap-[10px]">
-          <label className="text-sm font-medium leading-[21px] text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>Bạn là</label>
+          <label className="text-sm font-medium leading-[21px] text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>Bạn là</label>
           <div className="relative">
             <select value={form.role} onChange={set('role')}
               className="h-[58px] w-full appearance-none rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-5 text-[15px] text-[#9CA3AF] outline-none focus:border-[#E8C547]/50"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               <option value="" disabled>Chọn vai trò của bạn</option>
               <option value="ca-nhan">Cá nhân</option>
@@ -121,14 +121,14 @@ function AuthCard() {
 
         <label className="mt-1 flex items-start gap-3">
           <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-1 h-[18px] w-[18px] accent-[#E8C547]" />
-          <span className="text-base font-medium leading-6 text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <span className="text-base font-medium leading-6 text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
             Tôi đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của Phiền TV.
           </span>
         </label>
 
         <button type="submit" disabled={loading}
           className="mt-1 h-[60px] rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-semibold text-[#0A0A0A] transition-opacity hover:opacity-90 disabled:opacity-60"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {loading ? 'Đang tạo tài khoản...' : 'Tạo Tài Khoản'}
         </button>

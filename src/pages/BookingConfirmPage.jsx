@@ -16,7 +16,7 @@ function InfoRow({ icon, label, value }) {
         {icon}
       </div>
       <div className="flex flex-col gap-0.5">
-        <span className="text-xs font-medium uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <span className="text-xs font-medium uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
           {label}
         </span>
         <span className="text-[15px] font-semibold leading-6 text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
@@ -91,7 +91,7 @@ export default function BookingConfirmPage() {
           <div className="mb-8 flex items-center justify-center">
             <span
               className="rounded-full border border-[#2A2A2A] bg-[#1A1A1A] px-5 py-2 text-sm text-[#6B7280]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Mã đặt lịch tạm thời:{' '}
               <span className="font-bold text-[#E8C547]">
@@ -109,7 +109,7 @@ export default function BookingConfirmPage() {
             <div className="relative border-b border-[#2A2A2A] px-8 py-8 md:px-10">
               <h2
                 className="mb-6 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#E8C547]"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
                   <circle cx="10" cy="7" r="3.5" stroke="currentColor" strokeWidth="1.5" />
@@ -164,7 +164,7 @@ export default function BookingConfirmPage() {
             <div className="relative border-b border-[#2A2A2A] px-8 py-8 md:px-10">
               <h2
                 className="mb-6 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#E8C547]"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
                   <rect x="3" y="5" width="8" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
@@ -227,7 +227,7 @@ export default function BookingConfirmPage() {
             <div className="relative px-8 py-8 md:px-10">
               <h2
                 className="mb-6 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#E8C547]"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
                   <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
@@ -266,7 +266,7 @@ export default function BookingConfirmPage() {
               type="button"
               onClick={() => navigate('/booking')}
               className="flex h-[56px] flex-1 items-center justify-center gap-2 rounded-[12px] border border-[#2A2A2A] bg-[#1A1A1A] text-base font-semibold text-[#9CA3AF] transition-colors hover:border-[#E8C547]/40 hover:text-white"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               ← Chỉnh sửa
             </button>
@@ -274,7 +274,7 @@ export default function BookingConfirmPage() {
               type="button"
               onClick={() => navigate('/payment', { state: { form, selectedDate, selectedSlot } })}
               className="flex h-[56px] flex-1 items-center justify-center gap-2 rounded-[12px] bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-semibold text-[#0A0A0A] transition-opacity hover:opacity-90"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Tiến hành thanh toán →
             </button>
@@ -282,7 +282,7 @@ export default function BookingConfirmPage() {
 
           <p
             className="mt-6 text-center text-sm leading-[160%] text-[#6B7280]"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             Sau khi gửi, đội ngũ Phiền TV sẽ liên hệ xác nhận trong vòng 24 giờ.
           </p>

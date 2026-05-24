@@ -31,7 +31,7 @@ function StatCard({ label, value, sub, icon, trend, trendType, onClick }) {
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-white">
             {icon}
           </div>
-          <span className="text-xs font-semibold text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <span className="text-xs font-semibold text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
             {label}
           </span>
         </div>
@@ -46,7 +46,7 @@ function StatCard({ label, value, sub, icon, trend, trendType, onClick }) {
 
       {/* Main stat number & trend */}
       <div className="flex items-baseline gap-2 mt-2">
-        <span className="text-[36px] font-bold leading-none text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <span className="text-[36px] font-bold leading-none text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
           {value}
         </span>
         {trend && (
@@ -60,7 +60,7 @@ function StatCard({ label, value, sub, icon, trend, trendType, onClick }) {
 
       {/* Footer subtext */}
       {sub && (
-        <span className="text-xs text-[#6B7280] font-medium mt-1 flex items-center gap-1" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <span className="text-xs text-[#6B7280] font-medium mt-1 flex items-center gap-1" style={{ fontFamily: "'Gowun Batang', serif" }}>
           <span className="h-1.5 w-1.5 rounded-full bg-[#E8C547]" /> {sub}
         </span>
       )}
@@ -78,7 +78,7 @@ function TabBtn({ active, onClick, children }) {
           ? 'bg-[#E8C547] text-[#0A0A0A] shadow-[0_4px_12px_rgba(232,197,71,0.25)] scale-[1.03]' 
           : 'text-[#9CA3AF] hover:text-white hover:bg-[#1A1A1A]'
       }`}
-      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+      style={{ fontFamily: "'Gowun Batang', serif" }}
     >
       {children}
     </button>
@@ -129,12 +129,12 @@ function BookingsTab({ token }) {
             type="button"
             onClick={() => { setFilter(s); setPage(1) }}
             className={`rounded-[8px] px-4 py-1.5 text-xs font-semibold transition-colors ${filter === s ? 'bg-[#E8C547] text-[#0A0A0A]' : 'border border-[#2A2A2A] text-[#9CA3AF] hover:text-white'}`}
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {s ? STATUS_LABELS[s] : 'Tất cả'}
           </button>
         ))}
-        <span className="ml-auto text-xs text-[#6B7280] self-center" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <span className="ml-auto text-xs text-[#6B7280] self-center" style={{ fontFamily: "'Gowun Batang', serif" }}>
           {total} booking
         </span>
       </div>
@@ -145,7 +145,7 @@ function BookingsTab({ token }) {
           <thead>
             <tr className="border-b border-[#2A2A2A] bg-[#141414]">
               {['ID', 'Khách hàng', 'Dịch vụ', 'Ngày', 'Giá', 'Trạng thái', 'Hành động'].map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                   {h}
                 </th>
               ))}
@@ -233,13 +233,13 @@ function UsersTab({ token }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <span className="text-xs text-[#6B7280] self-end" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{total} người dùng</span>
+      <span className="text-xs text-[#6B7280] self-end" style={{ fontFamily: "'Gowun Batang', serif" }}>{total} người dùng</span>
       <div className="overflow-x-auto rounded-[16px] border border-[#2A2A2A]">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[#2A2A2A] bg-[#141414]">
               {['ID', 'Họ tên', 'Email', 'SĐT', 'Vai trò', 'Ngày tạo'].map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{h}</th>
+                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -319,7 +319,7 @@ function ServicesTab({ token }) {
             {cats.map((c) => (
               <div key={c.id} className="flex items-center justify-between gap-4 px-6 py-4">
                 <div className="flex flex-col gap-0.5">
-                  <span className="font-semibold text-white text-sm" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{c.name}</span>
+                  <span className="font-semibold text-white text-sm" style={{ fontFamily: "'Gowun Batang', serif" }}>{c.name}</span>
                   <span className="text-xs text-[#6B7280]">{c.description.slice(0, 80)}…</span>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -402,7 +402,7 @@ function LineChart({ data }) {
   return (
     <div className="relative w-full rounded-[24px] border border-[#222222] bg-[#141414] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Gowun Batang', serif" }}>
           Lượng Booking & Thành Viên Mới
         </h3>
         <div className="flex gap-4 text-xs font-semibold">
@@ -551,7 +551,7 @@ function RevenueChart({ data }) {
   return (
     <div className="relative w-full rounded-[24px] border border-[#222222] bg-[#141414] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Gowun Batang', serif" }}>
           Doanh Thu Hằng Ngày
         </h3>
         <span className="text-xs text-[#E8C547] font-semibold bg-[#E8C547]/10 px-2 py-0.5 rounded-full">
@@ -654,7 +654,7 @@ function TopPackagesChart({ data }) {
 
   return (
     <div className="flex flex-col gap-4 rounded-[24px] border border-[#222222] bg-[#141414] p-6 h-full shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
-      <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+      <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Gowun Batang', serif" }}>
         Top Gói Dịch Vụ
       </h3>
       <div className="flex flex-col gap-4 py-2">
@@ -715,7 +715,7 @@ function RecentActivities({ activities }) {
 
   return (
     <div className="flex flex-col gap-4 rounded-[24px] border border-[#222222] bg-[#141414] p-6 h-full shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
-      <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+      <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Gowun Batang', serif" }}>
         Hoạt động gần đây
       </h3>
       <div className="relative flex flex-col gap-5 py-2">
@@ -830,12 +830,12 @@ function ConsultationsTab({ token }) {
             type="button"
             onClick={() => { setFilter(s); setPage(1) }}
             className={`rounded-[8px] px-4 py-1.5 text-xs font-semibold transition-colors ${filter === s ? 'bg-[#E8C547] text-[#0A0A0A]' : 'border border-[#2A2A2A] text-[#9CA3AF] hover:text-white'}`}
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {s === 'pending' ? 'Chờ xử lý' : s === 'completed' ? 'Đã xử lý' : 'Tất cả'}
           </button>
         ))}
-        <span className="ml-auto text-xs text-[#6B7280] self-center" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <span className="ml-auto text-xs text-[#6B7280] self-center" style={{ fontFamily: "'Gowun Batang', serif" }}>
           {total} yêu cầu
         </span>
       </div>
@@ -846,7 +846,7 @@ function ConsultationsTab({ token }) {
           <thead>
             <tr className="border-b border-[#2A2A2A] bg-[#141414]">
               {['ID', 'Khách hàng', 'Ngày gửi', 'Trạng thái', 'Hành động'].map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                <th key={h} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                   {h}
                 </th>
               ))}
@@ -918,7 +918,7 @@ function ConsultationsTab({ token }) {
               </svg>
             </button>
 
-            <h3 className="m-0 text-xl font-bold text-white mb-6 border-b border-[#2D2D2D] pb-3" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+            <h3 className="m-0 text-xl font-bold text-white mb-6 border-b border-[#2D2D2D] pb-3" style={{ fontFamily: "'Gowun Batang', serif" }}>
               Chi tiết yêu cầu #{selectedConsult.id}
             </h3>
 
@@ -1036,7 +1036,7 @@ export default function AdminPage() {
               <h1 className="m-0 text-[28px] font-bold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
                 Admin Dashboard
               </h1>
-              <p className="mt-1 text-sm text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+              <p className="mt-1 text-sm text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                 Xin chào, {user.firstName} {user.lastName}
               </p>
             </div>

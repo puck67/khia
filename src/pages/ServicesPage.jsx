@@ -52,7 +52,7 @@ function Tag({ children }) {
   return (
     <span
       className="rounded-full border border-[rgba(232,197,71,0.2)] bg-[rgba(232,197,71,0.1)] px-3 py-1 text-xs leading-4 text-[#E8C547]"
-      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+      style={{ fontFamily: "'Gowun Batang', serif" }}
     >
       {children}
     </span>
@@ -76,13 +76,13 @@ function ServiceCategory({ name, description, tags, price, defaultOpen = false, 
         <div className="flex flex-col gap-1">
           <span
             className="text-lg font-bold leading-7 text-[#E8C547] group-hover:text-white transition-colors"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {name}
           </span>
           <span
             className="text-sm font-semibold text-white/80"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             {priceLabel}
           </span>
@@ -95,7 +95,7 @@ function ServiceCategory({ name, description, tags, price, defaultOpen = false, 
           <div className="flex flex-col gap-4 px-6 pb-7 md:px-10">
             <p
               className="m-0 border-l-2 border-[#E8C547] pl-4 text-sm leading-[180%] text-[#9CA3AF]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               {description}
             </p>
@@ -108,7 +108,7 @@ function ServiceCategory({ name, description, tags, price, defaultOpen = false, 
               to="/booking"
               state={{ service: serviceLabel, pkg: name }}
               className="mt-3 inline-flex items-center justify-center gap-2 self-start rounded-full bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_12px_rgba(232,197,71,0.2)] hover:scale-103 transition-transform duration-200"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Đặt dịch vụ ngay <span>→</span>
             </Link>
@@ -131,13 +131,13 @@ function ServicePackage({ data }) {
         </div>
         <h2
           className="relative m-0 text-[28px] font-bold leading-[150%] text-white md:text-[32px]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {data.title}
         </h2>
         <p
           className="relative mt-3 max-w-[538px] text-base leading-[180%] text-[#9CA3AF]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           {data.description}
         </p>
@@ -179,7 +179,7 @@ function Footer() {
             <p
               key={line}
               className="m-0 w-full text-[20px] leading-[130%] tracking-[-0.03em] text-[#FCFAF6] md:text-[24px] lg:text-[30px] lg:leading-[120%]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               {line}
             </p>
@@ -190,7 +190,7 @@ function Footer() {
       <div className="mx-auto flex w-full max-w-[1240px] justify-center lg:justify-start">
         <span
           className="text-center text-sm leading-[110%] tracking-[-0.03em] text-[#E4E4E4] md:text-base lg:text-left"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Phiền TV © 2025 All Rights Reserved
         </span>
@@ -218,7 +218,7 @@ export default function ServicesPage() {
           <ScrollReveal>
             <h1
               className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[40px] font-bold leading-none tracking-[4px] text-transparent md:text-[52px] lg:text-[64px] lg:tracking-[8px]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               DỊCH VỤ
             </h1>
@@ -226,7 +226,7 @@ export default function ServicesPage() {
           <ScrollReveal delay={150}>
             <p
               className="mt-6 max-w-[600px] text-base leading-[160%] text-[#9CA3AF] md:text-lg"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Không chỉ là một buổi chụp ảnh hay quay video – đó là hành trình kể câu chuyện thương hiệu bằng hình ảnh, cảm xúc và chiến lược nội dung rõ ràng.
             </p>

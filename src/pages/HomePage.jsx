@@ -17,17 +17,17 @@ function Hero() {
       {/* Text Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 px-4 text-center">
         <div className="animate-fade-in-up flex flex-col items-center gap-4">
-          <h1 className="m-0 text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <h1 className="m-0 text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl" style={{ fontFamily: "'Gowun Batang', serif" }}>
             PHIỀN <span className="text-[#E8C547]">TV</span>
           </h1>
           <div className="h-[2px] w-20 bg-[#E8C547] rounded-full" />
-          <p className="m-0 max-w-xl text-sm font-medium tracking-wide text-gray-200 uppercase md:text-base lg:text-lg" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <p className="m-0 max-w-xl text-sm font-medium tracking-wide text-gray-200 uppercase md:text-base lg:text-lg" style={{ fontFamily: "'Gowun Batang', serif" }}>
             Nội dung đủ tốt phải đủ "phiền" để không thể lướt qua
           </p>
           <Link
             to="/booking"
             className="mt-6 inline-flex h-[52px] items-center justify-center rounded-full bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] px-8 text-sm font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_20px_rgba(232,197,71,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(232,197,71,0.5)]"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+            style={{ fontFamily: "'Gowun Batang', serif" }}
           >
             Đặt lịch sản xuất
           </Link>
@@ -43,7 +43,7 @@ function WhatWeDoSection() {
       <ScrollReveal className="flex w-full justify-center">
         <span
           className="block w-full max-w-[984px] text-center text-[40px] leading-[100%] tracking-[-0.03em] text-white md:text-[56px] lg:text-[70px] lg:text-left"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Giới Thiệu
         </span>
@@ -52,7 +52,7 @@ function WhatWeDoSection() {
       <ScrollReveal delay={150} className="w-full max-w-[1280px] px-0 md:px-10 lg:px-[148px]">
         <p
           className="m-0 text-lg leading-[140%] tracking-[-0.03em] text-white md:text-[24px] lg:text-[32px] lg:leading-[140%]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Phiền TV là production house chuyên sản xuất nội dung số và xây dựng kênh trên các nền tảng mạng xã hội, đặc biệt là TikTok. Chúng tôi đồng hành cùng cá nhân, cửa hàng online và các thương hiệu nhỏ từ bước khởi đầu: lên ý tưởng, định hướng nội dung, sản xuất video ngắn đến phát triển kênh và tối ưu tăng trưởng dài hạn. Tên gọi "Phiền" không mang nghĩa tiêu cực. Chúng tôi tin rằng một nội dung đủ tốt phải đủ "phiền" để người xem không thể lướt qua, phải khiến họ dừng lại, ghi nhớ và hành động. Vì vậy, Phiền TV không chỉ tạo ra những video đẹp mắt hay bắt trend. Chúng tôi tập trung vào nội dung chiến lược, phục vụ mục tiêu bán hàng, xây dựng thương hiệu và phát triển bền vững.
         </p>
@@ -75,7 +75,7 @@ function LatestNewsSection() {
       <ScrollReveal className="w-full text-center">
         <span
           className="block w-full max-w-[1184px] mx-auto text-[40px] leading-[100%] tracking-[-0.03em] text-white md:text-[56px] lg:text-[70px]"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Giá trị cốt lõi
         </span>
@@ -93,13 +93,13 @@ function LatestNewsSection() {
             </div>
             <span
               className="block w-full text-center text-[28px] font-bold leading-[110%] tracking-[-0.03em] text-white md:text-[32px]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Mission
             </span>
             <p
               className="m-0 w-full text-center text-base leading-[150%] tracking-[-0.03em] text-[#9CA3AF] md:text-lg lg:text-[20px]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Giúp cá nhân và thương hiệu nhỏ biến content thành một hệ thống bán hàng có chiến lược, nơi mỗi video không chỉ để xem, mà để tạo ra chuyển đổi và doanh thu. Phiền TV tồn tại để đồng hành dài hạn: định hướng, triển khai và tối ưu nội dung theo lộ trình rõ ràng, giúp khách hàng không còn làm content trong cảm tính hay may rủi.
             </p>
@@ -116,13 +116,13 @@ function LatestNewsSection() {
             </div>
             <span
               className="block w-full text-center text-[28px] font-bold leading-[110%] tracking-[-0.03em] text-white md:text-[32px]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Vision
             </span>
             <p
               className="m-0 w-full text-center text-base leading-[150%] tracking-[-0.03em] text-[#9CA3AF] md:text-lg lg:text-[20px]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Trở thành production house social-first hàng đầu cho SMEs tại Việt Nam — nơi nội dung được xây dựng bằng tư duy chiến lược, đo lường bằng kết quả và phát triển bền vững theo thời gian. Phiền TV hướng đến việc thiết lập một tiêu chuẩn mới cho content bán hàng: không viral ngắn hạn, mà tạo ra hệ thống tăng trưởng dài hạn.
             </p>
@@ -148,7 +148,7 @@ function Footer() {
             <p
               key={line}
               className="m-0 w-full text-[20px] leading-[130%] tracking-[-0.03em] text-[#FCFAF6] md:text-[24px] lg:text-[30px] lg:leading-[120%]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               {line}
             </p>
@@ -159,7 +159,7 @@ function Footer() {
       <div className="mx-auto flex w-full max-w-[1240px] justify-center lg:justify-start">
         <span
           className="text-center text-sm leading-[110%] tracking-[-0.03em] text-[#E4E4E4] md:text-base lg:text-left"
-          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          style={{ fontFamily: "'Gowun Batang', serif" }}
         >
           Phiền TV © 2025 All Rights Reserved
         </span>

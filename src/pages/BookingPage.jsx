@@ -23,7 +23,7 @@ const TIME_SLOTS = [
 function Field({ label, required = false, children }) {
   return (
     <div className="flex flex-col gap-[10px]">
-      <label className="text-sm font-medium leading-[21px] text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+      <label className="text-sm font-medium leading-[21px] text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
         {label}
         {required && <span className="text-[#D93F3F]"> *</span>}
       </label>
@@ -38,7 +38,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
       <div className="pointer-events-none absolute left-1/2 top-0 h-[460px] w-[512px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(99.6%_57.81%_at_50%_50%,rgba(232,197,71,0.06)_0%,rgba(0,0,0,0)_70%)]" />
       
       <div>
-        <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
           Thông Tin Đặt Lịch
         </h2>
 
@@ -51,7 +51,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
                 value={form.name}
                 onChange={(e) => onChange('name', e.target.value)}
                 className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               />
             </Field>
             <Field label="Số điện thoại" required>
@@ -61,7 +61,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
                 value={form.phone}
                 onChange={(e) => onChange('phone', e.target.value)}
                 className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               />
             </Field>
           </div>
@@ -73,7 +73,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
               value={form.email}
               onChange={(e) => onChange('email', e.target.value)}
               className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             />
           </Field>
 
@@ -83,7 +83,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
                 value={form.service}
                 onChange={(e) => onChange('service', e.target.value)}
                 className={`h-[52px] w-full appearance-none rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] outline-none focus:border-[#E8C547]/50 ${form.service ? 'text-white font-medium' : 'text-[#9CA3AF]'}`}
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 <option value="">Chọn dịch vụ</option>
                 {serviceOptions.map((o) => <option key={o} value={o}>{o}</option>)}
@@ -102,7 +102,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
                 value={form.pkg}
                 onChange={(e) => onChange('pkg', e.target.value)}
                 className={`h-[52px] w-full appearance-none rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] outline-none focus:border-[#E8C547]/50 ${form.pkg ? 'text-white font-medium' : 'text-[#9CA3AF]'}`}
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                style={{ fontFamily: "'Gowun Batang', serif" }}
               >
                 <option value="">Chọn gói dịch vụ</option>
                 {pkgOptions.map((o) => <option key={o.name} value={o.name}>{o.name}</option>)}
@@ -122,7 +122,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
               value={form.location}
               onChange={(e) => onChange('location', e.target.value)}
               className="h-[52px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             />
           </Field>
 
@@ -132,7 +132,7 @@ function BookingFormCard({ form, onChange, serviceOptions, pkgOptions }) {
               value={form.notes}
               onChange={(e) => onChange('notes', e.target.value)}
               className="min-h-[120px] w-full rounded-[12px] border border-[#2D2D2D] bg-[#1C1C1C] px-5 py-4 text-[15px] text-white outline-none placeholder:text-[#6B7280] focus:border-[#E8C547]/50 focus:bg-[#1E1E1E] transition-all"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             />
           </Field>
         </div>
@@ -192,7 +192,7 @@ function CalendarCard({ selectedDate, setSelectedDate, selectedSlot, setSelected
       <div className="pointer-events-none absolute left-1/2 top-0 h-[460px] w-[512px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(99.6%_57.81%_at_50%_50%,rgba(232,197,71,0.06)_0%,rgba(0,0,0,0)_70%)]" />
       
       <div>
-        <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+        <h2 className="relative m-0 text-[28px] font-bold leading-[42px] text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
           Chọn Ngày & Giờ
         </h2>
 
@@ -227,7 +227,7 @@ function CalendarCard({ selectedDate, setSelectedDate, selectedSlot, setSelected
 
           <div className="mt-5 grid grid-cols-7 text-center">
             {WEEK_DAYS.map((day) => (
-              <span key={day} className="py-2 text-xs font-bold text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+              <span key={day} className="py-2 text-xs font-bold text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                 {day}
               </span>
             ))}
@@ -253,7 +253,7 @@ function CalendarCard({ selectedDate, setSelectedDate, selectedSlot, setSelected
                       : tod
                       ? 'border-[#E8C547]/40 text-[#E8C547] hover:border-[#E8C547] hover:bg-[#E8C547]/5'
                       : 'border-transparent text-[#9CA3AF] hover:border-[#2D2D2D] hover:bg-[#1C1C1C]'}`}
-                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                  style={{ fontFamily: "'Gowun Batang', serif" }}
                 >
                   {day}
                 </button>
@@ -283,7 +283,7 @@ function CalendarCard({ selectedDate, setSelectedDate, selectedSlot, setSelected
                   type="button"
                   onClick={() => setSelectedSlot(slot)}
                   className={`h-[48px] rounded-[12px] border text-sm transition-all ${sel ? 'border-[#E8C547] bg-[#E8C547]/10 font-semibold text-[#E8C547] shadow-[0_0_10px_rgba(232,197,71,0.05)]' : 'border-[#2D2D2D] bg-[#1C1C1C] text-[#9CA3AF] hover:border-[#E8C547]/50 hover:text-white'}`}
-                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+                  style={{ fontFamily: "'Gowun Batang', serif" }}
                 >
                   {slot}
                 </button>
@@ -297,7 +297,7 @@ function CalendarCard({ selectedDate, setSelectedDate, selectedSlot, setSelected
         type="button"
         onClick={onConfirm}
         className="mt-10 h-[56px] w-full rounded-full bg-[linear-gradient(135deg,#E8C547_0%,#D4A837_100%)] text-base font-bold uppercase tracking-wider text-[#0A0A0A] shadow-[0_4px_16px_rgba(232,197,71,0.25)] hover:scale-102 hover:shadow-[0_6px_20px_rgba(232,197,71,0.4)] transition-all duration-300"
-        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+        style={{ fontFamily: "'Gowun Batang', serif" }}
       >
         Xác Nhận Đặt Lịch
       </button>
@@ -364,7 +364,7 @@ export default function BookingPage() {
           <ScrollReveal>
             <h1
               className="m-0 bg-[linear-gradient(135deg,#FFFFFF_0%,#E8C547_100%)] bg-clip-text text-[40px] font-bold leading-none tracking-[4px] text-transparent md:text-[52px] lg:text-[64px] lg:tracking-[8px]"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               ĐẶT LỊCH
             </h1>
@@ -372,7 +372,7 @@ export default function BookingPage() {
           <ScrollReveal delay={150}>
             <p
               className="mt-6 max-w-[600px] text-base leading-[160%] text-[#9CA3AF] md:text-lg"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+              style={{ fontFamily: "'Gowun Batang', serif" }}
             >
               Hãy để chúng tôi lưu giữ những khoảnh khắc đẹp nhất của bạn bằng trải nghiệm đặt lịch rõ ràng và thuận tiện.
             </p>
