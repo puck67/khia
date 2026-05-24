@@ -18,16 +18,52 @@ const STATUS_COLORS = {
   cancelled: 'bg-red-500/15 text-red-400',
 }
 
-function StatCard({ label, value, sub }) {
+function StatCard({ label, value, sub, icon, trend, trendType, onClick }) {
+  const isUp = trendType === 'up'
   return (
-    <div className="flex flex-col gap-2 rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] px-6 py-5">
-      <span className="text-xs font-bold uppercase tracking-[0.1em] text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-        {label}
-      </span>
-      <span className="text-[28px] font-bold leading-none text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>
-        {value}
-      </span>
-      {sub && <span className="text-xs text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>{sub}</span>}
+    <div 
+      onClick={onClick}
+      className={`relative flex flex-col gap-3 rounded-[24px] border border-[#222222] bg-[#141414] px-6 py-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#E8C547]/30 hover:shadow-[0_12px_30px_rgba(232,197,71,0.05)] ${onClick ? 'cursor-pointer' : ''}`}
+    >
+      {/* Top row: Icon and Detail Arrow */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-white">
+            {icon}
+          </div>
+          <span className="text-xs font-semibold text-[#9CA3AF]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+            {label}
+          </span>
+        </div>
+        {onClick && (
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1A1A1A] text-[#9CA3AF] transition-colors hover:bg-[#E8C547] hover:text-[#0A0A0A]">
+            <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="2">
+              <path d="M4.5 11.5l7-7M11.5 11.5v-7h-7" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+        )}
+      </div>
+
+      {/* Main stat number & trend */}
+      <div className="flex items-baseline gap-2 mt-2">
+        <span className="text-[36px] font-bold leading-none text-white" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          {value}
+        </span>
+        {trend && (
+          <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-bold ${
+            isUp ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'
+          }`}>
+            {isUp ? '↑' : '↓'} {trend}
+          </span>
+        )}
+      </div>
+
+      {/* Footer subtext */}
+      {sub && (
+        <span className="text-xs text-[#6B7280] font-medium mt-1 flex items-center gap-1" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <span className="h-1.5 w-1.5 rounded-full bg-[#E8C547]" /> {sub}
+        </span>
+      )}
     </div>
   )
 }
@@ -37,7 +73,11 @@ function TabBtn({ active, onClick, children }) {
     <button
       type="button"
       onClick={onClick}
-      className={`px-5 py-2.5 text-sm font-semibold rounded-[10px] transition-colors ${active ? 'bg-[#E8C547] text-[#0A0A0A]' : 'text-[#9CA3AF] hover:text-white'}`}
+      className={`px-6 py-2.5 text-sm font-bold rounded-full transition-all duration-300 ${
+        active 
+          ? 'bg-[#E8C547] text-[#0A0A0A] shadow-[0_4px_12px_rgba(232,197,71,0.25)] scale-[1.03]' 
+          : 'text-[#9CA3AF] hover:text-white hover:bg-[#1A1A1A]'
+      }`}
       style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
     >
       {children}
@@ -333,24 +373,34 @@ function LineChart({ data }) {
   const bookingPoints = data.map((d, i) => ({ x: getX(i), y: getY(d.bookings) }))
   const userPoints = data.map((d, i) => ({ x: getX(i), y: getY(d.users) }))
 
-  const createLinePath = (points) => {
+  const createSmoothPath = (points) => {
     if (points.length === 0) return ''
-    return `M ${points[0].x} ${points[0].y} ` + points.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ')
+    let path = `M ${points[0].x} ${points[0].y}`
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[i]
+      const p1 = points[i + 1]
+      const cp1x = p0.x + (p1.x - p0.x) / 2
+      const cp1y = p0.y
+      const cp2x = p0.x + (p1.x - p0.x) / 2
+      const cp2y = p1.y
+      path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`
+    }
+    return path
   }
 
   const createAreaPath = (points) => {
     if (points.length === 0) return ''
     const baseLineY = height - padding.bottom
-    return createLinePath(points) + ` L ${points[points.length - 1].x} ${baseLineY} L ${points[0].x} ${baseLineY} Z`
+    return createSmoothPath(points) + ` L ${points[points.length - 1].x} ${baseLineY} L ${points[0].x} ${baseLineY} Z`
   }
 
-  const bookingLine = createLinePath(bookingPoints)
+  const bookingLine = createSmoothPath(bookingPoints)
   const bookingArea = createAreaPath(bookingPoints)
-  const userLine = createLinePath(userPoints)
+  const userLine = createSmoothPath(userPoints)
   const userArea = createAreaPath(userPoints)
 
   return (
-    <div className="relative w-full rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] p-5">
+    <div className="relative w-full rounded-[24px] border border-[#222222] bg-[#141414] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
           Lượng Booking & Thành Viên Mới
@@ -499,7 +549,7 @@ function RevenueChart({ data }) {
   }
 
   return (
-    <div className="relative w-full rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] p-5">
+    <div className="relative w-full rounded-[24px] border border-[#222222] bg-[#141414] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
           Doanh Thu Hằng Ngày
@@ -534,7 +584,7 @@ function RevenueChart({ data }) {
 
           {/* Bars */}
           {data.map((d, i) => {
-            const barWidth = Math.max(10, xStep * 0.6)
+            const barWidth = Math.max(16, xStep * 0.45)
             const xPos = getX(i) + (xStep - barWidth) / 2
             const yPos = getY(d.revenue)
             const barHeight = height - padding.bottom - yPos
@@ -547,9 +597,8 @@ function RevenueChart({ data }) {
                   width={barWidth}
                   height={barHeight}
                   fill="url(#barGrad)"
-                  rx="4"
-                  ry="4"
-                  opacity={activeIndex === i ? 1 : 0.8}
+                  rx={barWidth / 2}
+                  opacity={activeIndex === i ? 1 : 0.85}
                   className="transition-all duration-200"
                 />
                 <text x={getX(i) + xStep / 2} y={height - 15} fill="#6B7280" fontSize="10" textAnchor="middle">
@@ -595,7 +644,7 @@ function RevenueChart({ data }) {
 function TopPackagesChart({ data }) {
   if (!data || data.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] text-xs text-[#6B7280]">
+      <div className="flex h-64 items-center justify-center rounded-[24px] border border-[#222222] bg-[#141414] text-xs text-[#6B7280]">
         Chưa có số liệu gói dịch vụ.
       </div>
     )
@@ -604,7 +653,7 @@ function TopPackagesChart({ data }) {
   const maxVal = Math.max(...data.map(d => d.count), 1)
 
   return (
-    <div className="flex flex-col gap-4 rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] p-5 h-full">
+    <div className="flex flex-col gap-4 rounded-[24px] border border-[#222222] bg-[#141414] p-6 h-full shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
       <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
         Top Gói Dịch Vụ
       </h3>
@@ -626,7 +675,7 @@ function TopPackagesChart({ data }) {
                 </span>
                 <span className="text-[#9CA3AF] font-medium shrink-0">{pkg.count} bookings</span>
               </div>
-              <div className="h-2.5 w-full rounded-full bg-[#141414] overflow-hidden">
+              <div className="h-3 w-full rounded-full bg-[#1A1A1A] overflow-hidden p-0.5 border border-[#262626]">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${colors[i] || colors[4]}`}
                   style={{ width: `${percent}%` }}
@@ -643,7 +692,7 @@ function TopPackagesChart({ data }) {
 function RecentActivities({ activities }) {
   if (!activities || activities.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] text-xs text-[#6B7280]">
+      <div className="flex h-64 items-center justify-center rounded-[24px] border border-[#222222] bg-[#141414] text-xs text-[#6B7280]">
         Không có hoạt động gần đây.
       </div>
     )
@@ -665,7 +714,7 @@ function RecentActivities({ activities }) {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-[16px] border border-[#2A2A2A] bg-[#1A1A1A] p-5 h-full">
+    <div className="flex flex-col gap-4 rounded-[24px] border border-[#222222] bg-[#141414] p-6 h-full shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:border-[#E8C547]/20 transition-all duration-300">
       <h3 className="m-0 text-sm font-bold text-white uppercase tracking-[0.05em]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
         Hoạt động gần đây
       </h3>
@@ -774,19 +823,61 @@ export default function AdminPage() {
           {/* Stats */}
           {stats && (
             <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-              <StatCard label="Người dùng" value={stats.totalUsers.toLocaleString()} />
-              <StatCard label="Tổng booking" value={stats.totalBookings.toLocaleString()} />
-              <StatCard label="Chờ xác nhận" value={stats.pendingBookings.toLocaleString()} sub="cần xử lý" />
+              <StatCard
+                label="Người dùng"
+                value={stats.totalUsers.toLocaleString()}
+                trend="5%" trendType="up"
+                sub="Người dùng đăng ký"
+                icon={
+                  <svg viewBox="0 0 16 16" fill="none" className="h-5 w-5 text-blue-400" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="8" cy="5" r="3" />
+                    <path d="M3 13c0-2.5 2.239-4.5 5-4.5s5 2 5 4.5" />
+                  </svg>
+                }
+                onClick={() => setTab('users')}
+              />
+              <StatCard
+                label="Tổng booking"
+                value={stats.totalBookings.toLocaleString()}
+                trend="12%" trendType="up"
+                sub="Booking trong hệ thống"
+                icon={
+                  <svg viewBox="0 0 16 16" fill="none" className="h-5 w-5 text-purple-400" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="2" y="3" width="12" height="11" rx="1.5" />
+                    <path d="M5 2v2M11 2v2M2 7h12" />
+                  </svg>
+                }
+                onClick={() => setTab('bookings')}
+              />
+              <StatCard
+                label="Chờ xác nhận"
+                value={stats.pendingBookings.toLocaleString()}
+                sub="Cần phê duyệt sớm"
+                icon={
+                  <svg viewBox="0 0 16 16" fill="none" className="h-5 w-5 text-yellow-400" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="8" cy="8" r="6" />
+                    <path d="M8 4v4l3 1.5" />
+                  </svg>
+                }
+                onClick={() => setTab('bookings')}
+              />
               <StatCard
                 label="Doanh thu"
                 value={stats.totalRevenue ? stats.totalRevenue.toLocaleString('vi-VN') + ' ₫' : '0 ₫'}
-                sub="đã xác nhận"
+                trend="8%" trendType="up"
+                sub="Đã xác nhận"
+                icon={
+                  <svg viewBox="0 0 16 16" fill="none" className="h-5 w-5 text-green-400" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="8" cy="8" r="6" />
+                    <path d="M5 8h6M8 5v6" />
+                  </svg>
+                }
               />
             </div>
           )}
 
           {/* Tabs */}
-          <div className="mb-6 flex gap-1 rounded-[12px] border border-[#2A2A2A] bg-[#141414] p-1 w-fit">
+          <div className="mb-8 flex gap-1.5 rounded-full border border-[#222222] bg-[#141414] p-1.5 w-fit">
             <TabBtn active={tab === 'overview'} onClick={() => setTab('overview')}>Tổng quan</TabBtn>
             <TabBtn active={tab === 'bookings'} onClick={() => setTab('bookings')}>Booking</TabBtn>
             <TabBtn active={tab === 'users'} onClick={() => setTab('users')}>Người dùng</TabBtn>
