@@ -214,7 +214,7 @@ function Footer() {
 
 export default function ProductPage() {
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col items-center bg-[#1E1E1E]">
+    <div className="mx-auto flex min-h-screen w-full max-w-[1536px] flex-col items-center bg-[#1E1E1E]">
       <Navbar />
       <HeaderSection />
       <ProjectsSection />

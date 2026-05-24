@@ -142,7 +142,7 @@ export default function ProfilePage() {
   const fullName = `${user?.lastName || ''} ${user?.firstName || ''}`.trim()
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[1280px] bg-[#0A0A0A] text-white">
+    <div className="mx-auto min-h-screen w-full max-w-[1536px] bg-[#0A0A0A] text-white">
       <Navbar />
 
       <main className="px-4 py-12 md:px-8 md:py-16">

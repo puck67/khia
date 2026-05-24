@@ -210,7 +210,7 @@ export default function ServicesPage() {
   }, [])
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col items-center bg-[#1E1E1E]">
+    <div className="mx-auto flex min-h-screen w-full max-w-[1536px] flex-col items-center bg-[#1E1E1E]">
       <Navbar />
 
       <main className="w-full bg-[#1E1E1E] px-4 py-12 md:px-8 md:py-16 lg:px-0 lg:py-20">

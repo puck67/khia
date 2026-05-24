@@ -112,7 +112,7 @@ function AuthCard() {
 
 export default function LoginPage() {
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col items-center bg-white">
+    <div className="mx-auto flex min-h-screen w-full max-w-[1536px] flex-col items-center bg-white">
       <Navbar />
       <main className="flex w-full flex-1 items-start justify-center bg-[#1E1E1E] px-4 py-10 md:px-8 md:py-16">
         <AuthCard />
