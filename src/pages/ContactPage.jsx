@@ -103,7 +103,7 @@ function ContactInfoCard() {
 function Toast({ message, type }) {
   if (!message) return null
   return (
-    <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-[12px] border px-5 py-3 shadow-lg transition-all ${type === 'success' ? 'border-[#E8C547]/30 bg-[rgba(232,197,71,0.1)] text-[#E8C547]' : 'border-[#D62828]/30 bg-[rgba(214,40,40,0.1)] text-[#D62828]'}`}
+    <div className={`fixed top-24 right-6 z-[9999] flex items-center gap-3 rounded-[12px] border px-5 py-3 shadow-lg transition-all ${type === 'success' ? 'border-[#E8C547]/30 bg-[rgba(232,197,71,0.1)] text-[#E8C547]' : 'border-[#D62828]/30 bg-[rgba(214,40,40,0.1)] text-[#D62828]'}`}
       style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
     >
       {type === 'success'
@@ -205,6 +205,15 @@ function ContactHero() {
   )
 }
 
+function ContactBanner() {
+  return (
+    <section
+      className="w-full h-[320px] bg-cover bg-center shrink-0 border-t border-[#2D2D2D]/30"
+      style={{ backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${photo12})` }}
+    />
+  )
+}
+
 function Footer() {
   return (
     <footer className="flex w-full flex-col gap-10 bg-[#545454] px-4 py-8 md:px-8 lg:px-5 lg:py-[30px]">
@@ -256,7 +265,7 @@ export default function ContactPage() {
     }
     setLoading(true)
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/consultations`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/consultations`, {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify(form)
@@ -280,6 +289,7 @@ export default function ContactPage() {
       <Navbar />
       <ContactHero />
       <ContactMain form={form} setForm={setForm} handleSubmit={handleSubmit} loading={loading} />
+      <ContactBanner />
       <Footer />
       <Toast message={toastMessage} type={toastType} />
     </div>
