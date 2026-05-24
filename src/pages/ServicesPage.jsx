@@ -124,7 +124,7 @@ function ServicePackage({ data }) {
 
   return (
     <div className="overflow-hidden rounded-[24px] border border-[#2D2D2D] bg-[#141414] shadow-[0_16px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1.5 hover:border-[#E8C547]/30 hover:shadow-[0_20px_50px_rgba(232,197,71,0.06)] transition-all duration-500 ease-out group h-full flex flex-col justify-between">
-      <div className="relative overflow-hidden border-b border-[#222222] bg-[linear-gradient(135deg,#141414_0%,#0D0D0D_100%)] px-6 py-10 md:px-10 flex-1">
+      <div className="relative overflow-hidden border-b border-[#222222] bg-[linear-gradient(135deg,#141414_0%,#0D0D0D_100%)] px-6 py-10 md:px-10">
         <div className="absolute right-[-15%] top-[-25%] h-[220px] w-[220px] rounded-full bg-[radial-gradient(circle,rgba(232,197,71,0.08)_0%,rgba(0,0,0,0)_70%)]" />
         <div className={`relative mb-8 flex h-16 w-16 items-center justify-center rounded-full ${iconBg} ${iconColor} shadow-lg transition-transform duration-500 group-hover:scale-105`}>
           <PackageIcon type={data.iconType} className="h-7 w-7" />
@@ -153,7 +153,7 @@ function ServicePackage({ data }) {
         </Link>
       </div>
 
-      <div className="flex flex-col bg-[#111111] shrink-0">
+      <div className="flex flex-col bg-[#111111] flex-1">
         {data.categories.map((category, index) => (
           <ServiceCategory
             key={category.name}
