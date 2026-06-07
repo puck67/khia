@@ -187,9 +187,9 @@ export default function PaymentPage() {
                   </p>
                   <div className="flex flex-col gap-2">
                     {[
-                      ['Ngân hàng', 'Vietcombank'],
-                      ['Số tài khoản', '1234567890'],
-                      ['Chủ tài khoản', 'PHIEN TV MEDIA'],
+                      ['Ngân hàng', 'ACB'],
+                      ['Số tài khoản', '19541781'],
+                      ['Chủ tài khoản', 'VO CONG THANH DAT'],
                       ['Số tiền', priceLabel],
                       ['Nội dung CK', `Dat lich ${form.name || ''}`],
                     ].map(([label, val]) => (
