@@ -20,27 +20,6 @@ const PAYMENT_METHODS = [
       </svg>
     ),
   },
-  {
-    id: 'momo',
-    label: 'Ví MoMo',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
-        <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M8 12a4 4 0 108 0 4 4 0 00-8 0z" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    id: 'cash',
-    label: 'Thanh toán tiền mặt',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
-        <rect x="2" y="6" width="20" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="12" cy="12.5" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M6 9.5v6M18 9.5v6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
 ]
 
 function SummaryRow({ label, value, highlight }) {
@@ -190,7 +169,19 @@ export default function PaymentPage() {
 
               {/* Bank transfer details */}
               {selectedMethod === 'bank' && (
-                <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-5">
+                <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-6">
+                  {/* QR Code */}
+                  <div className="flex flex-col items-center mb-6">
+                    <img 
+                      src="/qr-payment.png" 
+                      alt="QR Code Chuyển Khoản" 
+                      className="w-48 h-48 rounded-lg border border-[#2A2A2A] bg-white p-2 object-contain shadow-md"
+                    />
+                    <p className="mt-3 text-xs text-[#9CA3AF] text-center" style={{ fontFamily: "'Gowun Batang', serif" }}>
+                      Quét mã QR bằng ứng dụng ngân hàng để thanh toán
+                    </p>
+                  </div>
+
                   <p className="mb-3 text-xs font-bold uppercase tracking-[0.1em] text-[#E8C547]" style={{ fontFamily: "'Gowun Batang', serif" }}>
                     Thông tin chuyển khoản
                   </p>
@@ -199,6 +190,7 @@ export default function PaymentPage() {
                       ['Ngân hàng', 'Vietcombank'],
                       ['Số tài khoản', '1234567890'],
                       ['Chủ tài khoản', 'PHIEN TV MEDIA'],
+                      ['Số tiền', priceLabel],
                       ['Nội dung CK', `Dat lich ${form.name || ''}`],
                     ].map(([label, val]) => (
                       <div key={label} className="flex items-center justify-between gap-4">
@@ -207,33 +199,6 @@ export default function PaymentPage() {
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
-
-              {selectedMethod === 'momo' && (
-                <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-5">
-                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.1em] text-[#E8C547]" style={{ fontFamily: "'Gowun Batang', serif" }}>
-                    Thông tin MoMo
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {[
-                      ['Số điện thoại', '0987654321'],
-                      ['Tên tài khoản', 'PHIEN TV MEDIA'],
-                    ].map(([label, val]) => (
-                      <div key={label} className="flex items-center justify-between gap-4">
-                        <span className="text-sm text-[#6B7280]" style={{ fontFamily: "'Gowun Batang', serif" }}>{label}</span>
-                        <span className="text-sm font-semibold text-white" style={{ fontFamily: "'Gowun Batang', serif" }}>{val}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {selectedMethod === 'cash' && (
-                <div className="mx-8 mb-6 rounded-[12px] border border-[#E8C547]/20 bg-[rgba(232,197,71,0.05)] px-6 py-5">
-                  <p className="text-sm leading-[170%] text-[#9CA3AF]" style={{ fontFamily: "'Gowun Batang', serif" }}>
-                    Thanh toán tiền mặt trực tiếp tại buổi chụp/quay. Đội ngũ sẽ xác nhận lịch hẹn qua điện thoại trước.
-                  </p>
                 </div>
               )}
             </div>
